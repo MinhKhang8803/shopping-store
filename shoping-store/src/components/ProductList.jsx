@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchProductsRequest } from '../actions/productActions';
-import { addToCart } from '../actions/cartActions'; // Make sure to import the addToCart action
+import { fetchProductsRequest } from '../redux/actions/productActions';
+import { addToCart } from '../redux/actions/cartActions'; // Make sure to import the addToCart action
 import { ProductListContainer, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductDescription, ProductPrice, AddToCartButton } from '../styles/productlist';
 
 const ProductList = ({ dispatch, loading, products, error }) => {

@@ -1,7 +1,7 @@
 // productSaga.js
 import { put, takeLatest, call } from 'redux-saga/effects';
-import * as actionTypes from '../actions/actionTypes';
-import * as productActions from '../actions/productActions';
+import * as actionTypes from '../redux/actions/actionTypes';
+import * as productActions from '../redux/actions/productActions';
 import api from '../services/api';
 
 function* fetchProducts() {

@@ -1,7 +1,7 @@
 // checkoutSaga.js
 import { put, takeLatest, call } from 'redux-saga/effects';
-import * as actionTypes from '../actions/actionTypes';
-import * as checkoutActions from '../actions/checkoutActions';
+import * as actionTypes from '../redux/actions/actionTypes';
+import * as checkoutActions from '../redux/actions/checkoutActions';
 import api from '../services/api';
 
 function* handleCheckout(action) {
