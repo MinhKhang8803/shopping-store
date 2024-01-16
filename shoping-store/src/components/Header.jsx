@@ -1,18 +1,21 @@
 import React from 'react';
-import { HeaderContainer, Nav, NavLink, Title, CartLink } from '../styles/header';
+import { HeaderContainer, HeaderWrapper, Nav, NavLink, Title, CartLink, StyledCartIcon } from '../styles/header';
+
 
 const Header = () => {
     return (
         <HeaderContainer>
-            <Nav>
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/products">Products</NavLink>
-                <NavLink to="/reviews">Reviews</NavLink>
-            </Nav>
-            <Title>My Web</Title>
-            <CartLink to="/cart">
-                <i className="fas fa-shopping-cart"></i> Cart
-            </CartLink>
+            <HeaderWrapper>
+                <Nav>
+                    <NavLink to="/">Home</NavLink>
+                    <NavLink to="/products">Products</NavLink>
+                    <NavLink to="/reviews">Reviews</NavLink>
+                </Nav>
+                <Title>Beauty.bd</Title>
+                <CartLink to="/cart">
+                    <StyledCartIcon />
+                </CartLink>
+            </HeaderWrapper>
         </HeaderContainer>
     );
 };
