@@ -1,30 +1,53 @@
-// cartReducer.js
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes'; // Update the import path
 
 const initialState = {
-    cartItems: [],
-    // Add more state properties as needed
+  cartItems: [],
 };
 
 const cartReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.ADD_TO_CART:
-            // Handle adding to cart
-            break;
+  switch (action.type) {
+    case actionTypes.ADD_TO_CART:
+      const existingProductIndex = state.cartItems.findIndex(
+        (item) => item.id === action.payload.id
+      );
 
-        case actionTypes.UPDATE_CART_ITEM:
-            // Handle updating cart item
-            break;
+      if (existingProductIndex !== -1) {
+        const updatedCart = [...state.cartItems];
+        updatedCart[existingProductIndex].quantity += 1;
 
-        case actionTypes.REMOVE_FROM_CART:
-            // Handle removing from cart
-            break;
+        return {
+          ...state,
+          cartItems: updatedCart,
+        };
+      } else {
+        return {
+          ...state,
+          cartItems: [...state.cartItems, { ...action.payload, quantity: 1 }],
+        };
+      }
+    case actionTypes.UPDATE_CART_ITEM:
+      const updatedCart = state.cartItems.map((item) =>
+        item.id === action.payload.productId
+          ? { ...item, quantity: action.payload.quantity }
+          : item
+      );
 
-        // Handle other actions as needed
+      return {
+        ...state,
+        cartItems: updatedCart,
+      };
+    case actionTypes.REMOVE_FROM_CART:
+      const filteredCart = state.cartItems.filter(
+        (item) => item.id !== action.payload
+      );
 
-        default:
-            return state;
+      return {
+        ...state,
+        cartItems: filteredCart,
+      };
+      default:
+        return state;
     }
-};
-
-export default cartReducer;
+  };
+  
+  export default cartReducer;
