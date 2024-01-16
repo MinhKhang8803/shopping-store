@@ -43,6 +43,9 @@ export const Title = styled.h2`
   margin: 0;
   color: #3b82f6;
   width: 12rem;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: bold;
+  font-size: 24px;
 `;
 
 export const CartLink = styled(Link)`
