@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "./store/configureStore";
 import Header from "./components/Header";
 import Cart from "./components/cart";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import ProductList from "./components/ProductList";
 // import Checkout from "./components/Checkout";
 
