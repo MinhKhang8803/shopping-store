@@ -33,10 +33,19 @@ export const NavLink = styled(Link)`
     color: #000;
   }
 
-  &:active {
+  &.active {
     color: #000;
     font-weight: bold;
   }
+`;
+
+export const Dot = styled.span`
+  width: 10px;
+  height: 10px;
+  background-color: #3b82f6;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 5px;
 `;
 
 export const Title = styled.h2`
