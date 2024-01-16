@@ -2,9 +2,9 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "./store/configureStore";
+import store from "./redux/store";
 import Header from "./components/Header";
-import Cart from "./components/cart";
+//import Cart from "./components/cart";
 import ProductList from "./components/ProductList";
 // import Checkout from "./components/Checkout";
 
@@ -14,8 +14,8 @@ function App() {
       <Router>
         <div>
           <Header />
-          {/* <ProductList /> */}
-          <Cart />
+          <ProductList />
+          {/* <Cart /> */}
         </div>
       </Router>
     </Provider>
