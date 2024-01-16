@@ -20,13 +20,23 @@ export const Nav = styled.div`
   gap: 1rem;
   margin-left: 3rem;
   font-size: 17px;
-  font-family: sans-serif;
+  font-family: "Fira Sans", sans-serif;
 `;
 
 export const NavLink = styled(Link)`
-  color: black;
+  color: #777;
   text-decoration: none;
-  margin-right: 20px;
+  font-weight: normal;
+  transition: color 0.3s, font-weight 0.3s;
+
+  &:hover {
+    color: #000;
+  }
+
+  &:active {
+    color: #000;
+    font-weight: bold;
+  }
 `;
 
 export const Title = styled.h2`
