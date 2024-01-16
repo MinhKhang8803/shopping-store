@@ -1,18 +1,19 @@
+// Header.jsx
 import React from 'react';
 import { HeaderContainer, HeaderWrapper, Nav, NavLink, Title, CartLink, StyledCartIcon } from '../styles/header';
-
+import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
         <HeaderContainer>
             <HeaderWrapper>
                 <Nav>
-                    <NavLink to="/">Home</NavLink>
-                    <NavLink to="/products">Products</NavLink>
-                    <NavLink to="/reviews">Reviews</NavLink>
+                    <NavLink as={Link} to="/">Home</NavLink>
+                    <NavLink as={Link} to="/products">Products</NavLink>
+                    <NavLink as={Link} to="/reviews">Reviews</NavLink>
                 </Nav>
                 <Title>Beauty.bd</Title>
-                <CartLink to="/cart">
+                <CartLink as={Link} to="/cart">
                     <StyledCartIcon />
                 </CartLink>
             </HeaderWrapper>
