@@ -1,17 +1,25 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import Navbar from './components/navbar';
+// App.js
+import React from "react";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import Header from "./components/Header";
+//import Cart from "./components/cart";
+import ProductList from "./components/ProductList";
+// import Checkout from "./components/Checkout";
 
-const App = () => {
+function App() {
   return (
     <Provider store={store}>
-      <div>
-        {/* Other components or pages can be added here */}
-        <Navbar />
-      </div>
+      <Router>
+        <div>
+          <Header />
+          <ProductList />
+          {/* <Cart /> */}
+        </div>
+      </Router>
     </Provider>
   );
-};
+}
 
 export default App;
