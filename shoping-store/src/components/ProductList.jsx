@@ -64,7 +64,7 @@ const ProductList = ({ dispatch, loading, products, error }) => {
           />
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
-          {/* Add more details if needed */}
+          {/* Add more details if needed test */}
         </div>
       );
     }
