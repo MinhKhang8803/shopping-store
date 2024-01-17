@@ -1,5 +1,13 @@
 import styled from 'styled-components';
 
+export const AddToCartButton = styled.button`
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+`;
+
 export const ProductListContainer = styled.div`
   display: flex;
   flex-direction: column;
