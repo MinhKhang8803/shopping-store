@@ -1,23 +1,24 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { fetchProductsRequest } from "../redux/actions/productActions";
-import { addToCart } from "../redux/actions/cartActions";
-import {
-  ProductListContainer,
-  ProductCard,
-  ProductImage,
-  ProductInfo,
-  ProductTitle,
-  ProductDescription,
-  ProductPrice,
-  AddToCartButton,
-} from "../styles/productlist";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { ProductListContainer, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductDescription, ProductPrice, DetailsLink } from '../styles/productlist';
 
-const ProductList = ({ dispatch, loading, products, error }) => {
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
-    dispatch(fetchProductsRequest());
-  }, [dispatch]);
+    setLoading(true);
+    axios.get('http://localhost:4000/api/products')
+      .then(response => {
+        setProducts(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -33,12 +34,13 @@ const ProductList = ({ dispatch, loading, products, error }) => {
         <ProductCard key={product.productId}>
           <ProductImage src={product.imageUrl} alt={product.name} />
           <ProductInfo>
-            <ProductTitle>{product.name}</ProductTitle>
+            <ProductTitle>{product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
             <ProductPrice>${product.price}</ProductPrice>
-            <AddToCartButton onClick={() => dispatch(addToCart(product))}>
+            <DetailsLink to={`/product/${product.id}`}>Details</DetailsLink>
+            {/* <AddToCartButton onClick={() => dispatch(addToCart(product))}>
               Add to Cart
-            </AddToCartButton>
+            </AddToCartButton> */}
           </ProductInfo>
         </ProductCard>
       ))}
@@ -46,10 +48,4 @@ const ProductList = ({ dispatch, loading, products, error }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  products: state.product.products,
-  loading: state.product.loading,
-  error: state.product.error,
-});
-
-export default connect(mapStateToProps)(ProductList);
+export default ProductList;

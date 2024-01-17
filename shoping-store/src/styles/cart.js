@@ -88,6 +88,18 @@ width:100%;
 display: flex;
 justify-content: space-between;
 `;
+export const InputAsSpan = styled.input`
+  border: none;
+  outline: none;
+  padding: 0;
+  font-size: 1em;
+  color: #333;
+  width: 70px; /* Adjust the width as needed */
+  text-align: center;
+  background: transparent;
+  appearance: textfield;
+  -moz-appearance: textfield;
+`;
 export const QuantityButtonCover = styled.div`
 width:30%;
 display: flex;

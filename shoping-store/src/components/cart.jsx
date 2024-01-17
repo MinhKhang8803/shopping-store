@@ -15,6 +15,13 @@ const Cart = ({ cart, dispatch }) => {
     }
   };
 
+  const handleQuantityInputChange = (productId, event) => {
+    const newQuantity = parseInt(event.target.value, 10);
+    if (!isNaN(newQuantity)) {
+      handleQuantityChange(productId, newQuantity);
+    }
+  };
+  
   const handleDelete = (productId) => {
     dispatch(removeFromCart(productId));
     setDeleteConfirmation(null);
@@ -59,27 +66,27 @@ const Cart = ({ cart, dispatch }) => {
                         </s.ProductDetails>
                         <s.QuantityDiv>
                           <s.QuantityButtonCover>
-                            <s.QuantityButton
-                              onClick={() =>
-                                handleQuantityChange(
-                                  product.productId,
-                                  product.quantity - 1
-                                )
-                              }
-                            >
-                              <FiMinus />
-                            </s.QuantityButton>
-                            <span>{product.quantity}</span>
-                            <s.QuantityButton
-                              onClick={() =>
-                                handleQuantityChange(
-                                  product.productId,
-                                  product.quantity + 1
-                                )
-                              }
-                            >
-                              <FiPlus />
-                            </s.QuantityButton>
+                          <s.QuantityButton
+                  onClick={() =>
+                    handleQuantityChange(product.productId, product.quantity - 1)
+                  }
+                >
+                  <FiMinus />
+                </s.QuantityButton>
+                <s.InputAsSpan
+                  type="number"
+                  value={product.quantity}
+                  onChange={(e) =>
+                    handleQuantityInputChange(product.productId, e)
+                  }
+                />
+                <s.QuantityButton
+                  onClick={() =>
+                    handleQuantityChange(product.productId, product.quantity + 1)
+                  }
+                >
+                  <FiPlus />
+                </s.QuantityButton>
                           </s.QuantityButtonCover>
                           <s.ProductPrice>${product.price}</s.ProductPrice>
                         </s.QuantityDiv>
@@ -97,13 +104,7 @@ const Cart = ({ cart, dispatch }) => {
                   </s.ProductDetailContainer>
                 </s.ProductContainer>
               ))}
-              <s.TotalContainer>
-                <s.TotalText>Total:</s.TotalText>
-                <span>${getTotalPrice()}</span>
-              </s.TotalContainer>
-              <s.CheckoutButton onClick={handleCheckout}>
-                Checkout
-              </s.CheckoutButton>
+              
               {deleteConfirmation !== null && (
                 <s.ConfirmationPopup>
                   <p>Do you want to delete this item?</p>
