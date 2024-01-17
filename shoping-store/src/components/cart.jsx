@@ -110,8 +110,26 @@ const Cart = ({ cart, dispatch }) => {
                   </button>
                 </s.ConfirmationPopup>
               )}
+
             </s.CartContainer>
-            <s.CheckoutContainer></s.CheckoutContainer>
+            <s.CheckoutContainer>
+              <s.OrderInfo>
+                <s.OrderInfoItem>
+                  <span>Subtotal:</span>
+                  <span>${getTotalPrice()}</span>
+                </s.OrderInfoItem>
+                <s.OrderInfoItem>
+                  <span>Shipping Cost:</span>
+                  <span>$10</span>
+                </s.OrderInfoItem>
+                <s.OrderInfoItem>
+                  <span>Total:</span>
+                  <span>${getTotalPrice() + 10}</span>
+                </s.OrderInfoItem>
+              </s.OrderInfo>
+              <s.CheckoutButton onClick={handleCheckout}>Checkout</s.CheckoutButton>
+              <s.ContinueShoppingButton>Continue Shopping</s.ContinueShoppingButton>
+            </s.CheckoutContainer>
           </s.InnerContainer>
         </>
       )}

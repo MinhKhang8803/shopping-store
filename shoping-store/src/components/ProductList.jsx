@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchProductsRequest } from '../redux/actions/productActions';
 import { addToCart } from '../redux/actions/cartActions';
 import { ProductListContainer, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductDescription, ProductPrice, AddToCartButton } from '../styles/productlist';
 
 const ProductList = ({ dispatch, loading, products, error }) => {
-    useEffect(() => {
-        dispatch(fetchProductsRequest());
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchProductsRequest());
+  }, [dispatch]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
     if (error) {
         return <div>Error: {error}</div>;
@@ -37,9 +38,9 @@ const ProductList = ({ dispatch, loading, products, error }) => {
 };
 
 const mapStateToProps = (state) => ({
-    products: state.product.products,
-    loading: state.product.loading,
-    error: state.product.error,
+  products: state.product.products,
+  loading: state.product.loading,
+  error: state.product.error,
 });
 
 export default connect(mapStateToProps)(ProductList);

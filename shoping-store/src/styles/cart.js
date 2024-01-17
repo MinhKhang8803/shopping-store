@@ -33,10 +33,12 @@ export const CartContainer =styled.div`
   display: flex;
   flex-direction: column;
 `;
-export const CheckoutContainer =styled.div`
-  background-color: black;
+export const CheckoutContainer = styled.div`
   width: 30%;
   height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
 `;
 export const ProductInfo = styled.div`
   display: flex;
@@ -128,6 +130,7 @@ export const CheckoutButton = styled.button`
   border: none;
   padding: 10px;
   cursor: pointer;
+  width: 100%;  // Set width to 100% to match CheckoutContainer
 `;
 
 export const Title = styled.div`
@@ -166,3 +169,33 @@ export const ConfirmationPopup = styled.div`
 
 export { FiTrash2, FiPlus, FiMinus };
 
+export const OrderInfo = styled.div`
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
+
+export const OrderInfoItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+
+  span {
+    font-weight: bold;
+  }
+`;
+
+export const ContinueShoppingButton = styled.button`
+  background-color: #3b82f6;  // Adjust color as needed
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%;  // Set width to 100% to match CheckoutContainer
+  margin-top: 10px;  // Add margin for separation
+`;
