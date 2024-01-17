@@ -20,7 +20,7 @@ const ProductList = ({ dispatch, loading, products, error }) => {
     return (
         <ProductListContainer>
             {products.map((product) => (
-                <ProductCard key={product.id}>
+                <ProductCard key={product.productId}>
                     <ProductImage src={product.imageUrl} alt={product.name} />
                     <ProductInfo>
                         <ProductTitle>{product.name}</ProductTitle>

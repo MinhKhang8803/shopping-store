@@ -49,7 +49,6 @@ export const ProductImage = styled.img`
   width: 45%;
   height: 90%;
   margin-right: 10px;
-  background-color: black;
   margin-left: 10px;
 `;
 

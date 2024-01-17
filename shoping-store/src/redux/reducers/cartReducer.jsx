@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/actionTypes'; // Update the import path
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   cartItems: [],
@@ -8,7 +8,7 @@ const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_TO_CART:
       const existingProductIndex = state.cartItems.findIndex(
-        (item) => item.id === action.payload.id
+        (item) => item.id === action.payload.productId
       );
 
       if (existingProductIndex !== -1) {
@@ -25,6 +25,7 @@ const cartReducer = (state = initialState, action) => {
           cartItems: [...state.cartItems, { ...action.payload, quantity: 1 }],
         };
       }
+
     case actionTypes.UPDATE_CART_ITEM:
       const updatedCart = state.cartItems.map((item) =>
         item.id === action.payload.productId
@@ -36,6 +37,7 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         cartItems: updatedCart,
       };
+
     case actionTypes.REMOVE_FROM_CART:
       const filteredCart = state.cartItems.filter(
         (item) => item.id !== action.payload
@@ -45,9 +47,9 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         cartItems: filteredCart,
       };
-      default:
-        return state;
-    }
-  };
-  
-  export default cartReducer;
+    default:
+      return state;
+  }
+};
+
+export default cartReducer;

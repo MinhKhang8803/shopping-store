@@ -43,13 +43,13 @@ const Cart = ({ cart, dispatch }) => {
           <s.InnerContainer>
             <s.CartContainer>
               {cart.map((product) => (
-                <s.ProductContainer key={product.id}>
+                <s.ProductContainer key={product.productId}>
                   <s.ProductDetailContainer>
                     <s.ProductInfo>
-                      <s.ProductImage src={product.image} alt={product.name} />
+                      <s.ProductImage src={product.imageUrl} alt={product.ProductName} />
                       <s.ProductDetailCover>
                         <s.ProductDetails>
-                          <s.ProductName>{product.name}</s.ProductName>
+                          <s.ProductName>{product.ProductName}</s.ProductName>
                           <s.ProductDescription>
                             {product.description}
                           </s.ProductDescription>
