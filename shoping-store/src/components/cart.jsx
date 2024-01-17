@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import { FiTrash2, FiPlus, FiMinus } from "react-icons/fi";
-import { removeFromCart, updateCartItem } from '../redux/actions/cartActions';
+import { removeFromCart, updateCartItem } from "../redux/actions/cartActions";
 import * as s from "../styles/cart";
 
 const Cart = ({ cart, dispatch }) => {
@@ -15,6 +15,13 @@ const Cart = ({ cart, dispatch }) => {
     }
   };
 
+  const handleQuantityInputChange = (productId, event) => {
+    const newQuantity = parseInt(event.target.value, 10);
+    if (!isNaN(newQuantity)) {
+      handleQuantityChange(productId, newQuantity);
+    }
+  };
+  
   const handleDelete = (productId) => {
     dispatch(removeFromCart(productId));
     setDeleteConfirmation(null);
@@ -46,7 +53,10 @@ const Cart = ({ cart, dispatch }) => {
                 <s.ProductContainer key={product.productId}>
                   <s.ProductDetailContainer>
                     <s.ProductInfo>
-                      <s.ProductImage src={product.imageUrl} alt={product.ProductName} />
+                      <s.ProductImage
+                        src={product.imageUrl}
+                        alt={product.ProductName}
+                      />
                       <s.ProductDetailCover>
                         <s.ProductDetails>
                           <s.ProductName>{product.ProductName}</s.ProductName>
@@ -56,27 +66,27 @@ const Cart = ({ cart, dispatch }) => {
                         </s.ProductDetails>
                         <s.QuantityDiv>
                           <s.QuantityButtonCover>
-                            <s.QuantityButton
-                              onClick={() =>
-                                handleQuantityChange(
-                                  product.id,
-                                  product.quantity - 1
-                                )
-                              }
-                            >
-                              <FiMinus />
-                            </s.QuantityButton>
-                            <span>{product.quantity}</span>
-                            <s.QuantityButton
-                              onClick={() =>
-                                handleQuantityChange(
-                                  product.id,
-                                  product.quantity + 1
-                                )
-                              }
-                            >
-                              <FiPlus />
-                            </s.QuantityButton>
+                          <s.QuantityButton
+                  onClick={() =>
+                    handleQuantityChange(product.productId, product.quantity - 1)
+                  }
+                >
+                  <FiMinus />
+                </s.QuantityButton>
+                <s.InputAsSpan
+                  type="number"
+                  value={product.quantity}
+                  onChange={(e) =>
+                    handleQuantityInputChange(product.productId, e)
+                  }
+                />
+                <s.QuantityButton
+                  onClick={() =>
+                    handleQuantityChange(product.productId, product.quantity + 1)
+                  }
+                >
+                  <FiPlus />
+                </s.QuantityButton>
                           </s.QuantityButtonCover>
                           <s.ProductPrice>${product.price}</s.ProductPrice>
                         </s.QuantityDiv>
@@ -84,7 +94,9 @@ const Cart = ({ cart, dispatch }) => {
                     </s.ProductInfo>
                     <s.QuantityContainer>
                       <s.DeleteButton
-                        onClick={() => handleQuantityChange(product.id, 0)}
+                        onClick={() =>
+                          handleQuantityChange(product.productId, 0)
+                        }
                       >
                         <FiTrash2 />
                       </s.DeleteButton>
@@ -92,13 +104,7 @@ const Cart = ({ cart, dispatch }) => {
                   </s.ProductDetailContainer>
                 </s.ProductContainer>
               ))}
-              <s.TotalContainer>
-                <s.TotalText>Total:</s.TotalText>
-                <span>${getTotalPrice()}</span>
-              </s.TotalContainer>
-              <s.CheckoutButton onClick={handleCheckout}>
-                Checkout
-              </s.CheckoutButton>
+              
               {deleteConfirmation !== null && (
                 <s.ConfirmationPopup>
                   <p>Do you want to delete this item?</p>
@@ -110,7 +116,6 @@ const Cart = ({ cart, dispatch }) => {
                   </button>
                 </s.ConfirmationPopup>
               )}
-
             </s.CartContainer>
             <s.CheckoutContainer>
               <s.OrderInfo>
@@ -127,8 +132,12 @@ const Cart = ({ cart, dispatch }) => {
                   <span>${getTotalPrice() + 10}</span>
                 </s.OrderInfoItem>
               </s.OrderInfo>
-              <s.CheckoutButton onClick={handleCheckout}>Checkout</s.CheckoutButton>
-              <s.ContinueShoppingButton>Continue Shopping</s.ContinueShoppingButton>
+              <s.CheckoutButton onClick={handleCheckout}>
+                Checkout
+              </s.CheckoutButton>
+              <s.ContinueShoppingButton>
+                Continue Shopping
+              </s.ContinueShoppingButton>
             </s.CheckoutContainer>
           </s.InnerContainer>
         </>
@@ -138,7 +147,7 @@ const Cart = ({ cart, dispatch }) => {
 };
 
 const mapStateToProps = (state) => ({
-    cart: state.cart.cartItems,
-  });
-  
-  export default connect(mapStateToProps)(Cart);
+  cart: state.cart.cartItems,
+});
+
+export default connect(mapStateToProps)(Cart);
