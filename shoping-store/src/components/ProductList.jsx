@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { ProductListContainer, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductDescription, ProductPrice, DetailsLink } from '../styles/productlist';
+// ProductList.jsx
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { fetchProductsRequest } from '../redux/actions/productActions';
+import { addToCart } from '../redux/actions/cartActions';
+import {
+  ProductListContainer,
+  ProductCard,
+  ProductImage,
+  ProductInfo,
+  ProductTitle,
+  ProductDescription,
+  ProductPrice,
+  AddToCartButton
+} from '../styles/productlist';
+
+const ProductList = ({ dispatch, loading, products, error }) => {
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
-    axios.get('http://localhost:4000/api/products')
-      .then(response => {
-        setProducts(response.data);
-        setLoading(false);
-      })
-      .catch(error => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
+    dispatch(fetchProductsRequest());
+  }, [dispatch]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -28,24 +30,69 @@ const ProductList = () => {
     return <div>Error: {error}</div>;
   }
 
-  return (
+  const handleProductClick = (product) => {
+    setSelectedProduct(product);
+  };
+
+  const renderProductList = () => (
     <ProductListContainer>
       {products.map((product) => (
-        <ProductCard key={product.productId}>
+        <ProductCard key={product.productId} onClick={() => handleProductClick(product)}>
           <ProductImage src={product.imageUrl} alt={product.name} />
           <ProductInfo>
-            <ProductTitle>{product.productName}</ProductTitle>
+            <ProductTitle>{product.name}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
             <ProductPrice>${product.price}</ProductPrice>
-            <DetailsLink to={`/product/${product.id}`}>Details</DetailsLink>
-            {/* <AddToCartButton onClick={() => dispatch(addToCart(product))}>
+            <AddToCartButton onClick={() => dispatch(addToCart(product))}>
               Add to Cart
-            </AddToCartButton> */}
+            </AddToCartButton>
           </ProductInfo>
         </ProductCard>
       ))}
     </ProductListContainer>
   );
+
+  const renderFullProductInfo = () => {
+    if (selectedProduct) {
+      return (
+        <div style={{ maxWidth: '500px' }}> {/* Set a maximum width for the detailed product information */}
+          <h2>{selectedProduct.name}</h2>
+          <ProductImage
+            src={selectedProduct.imageUrl}
+            alt={selectedProduct.name}
+            style={{ maxWidth: '100%', maxHeight: '400px' }} // Adjust the max width and height as needed
+          />
+          <p>{selectedProduct.description}</p>
+          <p>Price: ${selectedProduct.price}</p>
+          {/* Add more details if needed test */}
+        </div>
+      );
+    }
+
+    return <div>Please select a product</div>;
+  };
+
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ width: '70%' }}>
+        {selectedProduct ? (
+          renderFullProductInfo()
+        ) : (
+          <img src="defaultImageUrl" alt="Default" style={{ width: '100%' }} />
+        )}
+      </div>
+      <div style={{ width: '30%' }}>
+        {renderProductList()}
+      </div>
+    </div>
+  );
 };
 
-export default ProductList;
+const mapStateToProps = (state) => ({
+  products: state.product.products,
+  loading: state.product.loading,
+  error: state.product.error,
+});
+
+export default connect(mapStateToProps)(ProductList);
+
