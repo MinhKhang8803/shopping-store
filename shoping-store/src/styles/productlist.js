@@ -1,20 +1,20 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ProductListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   padding: 20px;
-  max-width: 20%; 
+  max-width: 20%;
   margin-left: auto;
 `;
 
 export const ProductCard = styled.div`
-width: 100%;
+  width: 100%;
   margin-bottom: 20px;
   max-width: 500px;
   margin: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   overflow: hidden;
   background: #fff;
@@ -50,4 +50,11 @@ export const ProductPrice = styled.p`
   font-size: 1em;
   color: #333;
   font-weight: bold;
+`;
+export const AddToCartButton = styled.button`
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
 `;
