@@ -1,21 +1,20 @@
-// /src/Style/productlist.js
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ProductListContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   padding: 20px;
-  max-width: 20%; // Adjust this to your desired width
-  margin-left: auto; // This will push the container to the right side of the parent container
+  max-width: 20%;
+  margin-left: auto;
 `;
 
 export const ProductCard = styled.div`
-width: 100%; // The cards will take up 100% of the width of the ProductListContainer
-  margin-bottom: 20px; // Adds space between the cards
-  max-width: 500px; /* Set a max-width for the cards */
+  width: 100%;
+  margin-bottom: 20px;
+  max-width: 500px;
   margin: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   overflow: hidden;
   background: #fff;
@@ -52,19 +51,10 @@ export const ProductPrice = styled.p`
   color: #333;
   font-weight: bold;
 `;
-
 export const AddToCartButton = styled.button`
-  background-color: #5ea1d7;
-  color: white;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
   border: none;
-  padding: 10px 15px;
-  margin-top: 10px;
   cursor: pointer;
-  width: 100%;
-  border-radius: 4px;
-  font-size: 1em;
-
-  &:hover {
-    background-color: #4b8ab9;
-}
 `;

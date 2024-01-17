@@ -1,16 +1,27 @@
 // Header.jsx
 import React from 'react';
-import { HeaderContainer, HeaderWrapper, Nav, NavLink, Title, CartLink, StyledCartIcon } from '../styles/header';
-import { Link } from 'react-router-dom';
+import { HeaderContainer, HeaderWrapper, Nav, NavLink, Title, CartLink, StyledCartIcon, Dot } from '../styles/header';
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
+    const location = useLocation();
+
     return (
         <HeaderContainer>
             <HeaderWrapper>
                 <Nav>
-                    <NavLink as={Link} to="/">Home</NavLink>
-                    <NavLink as={Link} to="/products">Products</NavLink>
-                    <NavLink as={Link} to="/reviews">Reviews</NavLink>
+                    <NavLink as={Link} to="/" className={location.pathname === '/' ? 'active' : ''}>
+                        Home
+                        {location.pathname === '/' && <Dot />}
+                    </NavLink>
+                    <NavLink as={Link} to="/products" className={location.pathname === '/products' ? 'active' : ''}>
+                        Products
+                        {location.pathname === '/products' && <Dot />}
+                    </NavLink>
+                    <NavLink as={Link} to="/reviews" className={location.pathname === '/reviews' ? 'active' : ''}>
+                        Reviews
+                        {location.pathname === '/reviews' && <Dot />}
+                    </NavLink>
                 </Nav>
                 <Title>Beauty.bd</Title>
                 <CartLink as={Link} to="/cart">
