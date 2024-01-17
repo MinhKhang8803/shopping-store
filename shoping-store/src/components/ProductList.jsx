@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchProductsRequest } from '../redux/actions/productActions';
-import { ProductListContainer, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductDescription, ProductPrice, AddToCartButton } from '../styles/productlist';
+import { ProductListContainer, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductDescription, ProductPrice } from '../styles/productlist';
 
 const ProductList = ({ dispatch, loading, products, error }) => {
   useEffect(() => {
