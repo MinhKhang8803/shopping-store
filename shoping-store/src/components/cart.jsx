@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import { FiTrash2, FiPlus, FiMinus } from "react-icons/fi";
 import { removeFromCart, updateCartItem } from "../redux/actions/cartActions";
 import * as s from "../styles/cart";
+import { useNavigate } from 'react-router-dom';
 
 const Cart = ({ cart, dispatch }) => {
+  const navigate = useNavigate();
   const [deleteConfirmation, setDeleteConfirmation] = useState(null);
 
   const handleQuantityChange = (productId, newQuantity) => {
@@ -132,10 +134,13 @@ const Cart = ({ cart, dispatch }) => {
               <span>${getTotalPrice() + 10}</span>
             </s.OrderInfoItem>
           </s.OrderInfo>
-          <s.CheckoutButton onClick={handleCheckout}>
+          <s.CheckoutButton
+            onClick={handleCheckout}
+            disabled={cart.length === 0}
+          >
             Checkout
           </s.CheckoutButton>
-          <s.ContinueShoppingButton>
+          <s.ContinueShoppingButton onClick={() => navigate('/products')}>
             Continue Shopping
           </s.ContinueShoppingButton>
         </s.CheckoutContainer>
