@@ -14,6 +14,8 @@ import {
   AddToCartButton,
   DetailsLink,
 } from "../styles/productlist";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ProductList = ({ addToCart }) => {
@@ -48,6 +50,19 @@ const ProductList = ({ addToCart }) => {
     setSelectedProduct(null);
   };
 
+  const handleAddToCart = (product) => {
+    const existingProductIndex = products.findIndex(
+      (item) => item.productId === product.productId
+    );
+
+    if (existingProductIndex !== -1) {
+      addToCart({ ...product, quantity: products[existingProductIndex].quantity + 1 });
+      toast.success('👏 Add successfully!');
+    } else {
+      addToCart({ ...product, quantity: 1 });
+      toast.success('👏 Add successfully!');
+    }
+  };
 
   const renderProductList = () => (
     <ProductListContainer>
@@ -88,9 +103,6 @@ const ProductList = ({ addToCart }) => {
             padding: "16px",
           }}
         >
-          {/* Added padding to the inner content */}
-
-
           <ProductImage
             src={selectedProduct.imageUrl}
             alt={selectedProduct.name}
@@ -100,9 +112,8 @@ const ProductList = ({ addToCart }) => {
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
 
-          <AddToCartButton onClick={() => addToCart(selectedProduct, quantity)}>
-            Add to Cart
-          </AddToCartButton>
+          <AddToCartButton onClick={() => handleAddToCart(selectedProduct)}>Add to Cart</AddToCartButton>
+
           <div style={{ width: "30%" }}>
             {selectedProduct ? (
               <div>
