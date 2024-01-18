@@ -257,3 +257,9 @@ export const ContinueShoppingButton = styled.button`
     color: #fff;
   }
 `;
+export const CheckoutCompleteMessage = styled.p`
+  color: green; 
+  font-size: 18px;
+  margin-top: 10px;
+  text-align: center;
+`;

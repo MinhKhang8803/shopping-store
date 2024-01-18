@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Cart = ({ cart, dispatch }) => {
   const navigate = useNavigate();
   const [deleteConfirmation, setDeleteConfirmation] = useState(null);
+  const [checkoutComplete, setCheckoutComplete] = useState(false);
 
   const handleQuantityChange = (productId, newQuantity) => {
     if (newQuantity === 0) {
@@ -37,8 +38,40 @@ const Cart = ({ cart, dispatch }) => {
     return parseFloat(total.toFixed(2));
   };
 
-  const handleCheckout = () => {
-    alert("Checkout logic goes here!");
+  const handleCheckout = async () => {
+    if (cart.length === 0) {
+      return;
+    }
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cart),
+      });
+  
+      if (response.ok) {
+        // If the server returns a successful result, remove each item from the cart
+        cart.forEach((product) => {
+          dispatch(removeFromCart(product.productId));
+        });
+  
+        setDeleteConfirmation(null);
+        setCheckoutComplete(true);
+  
+        // Redirect the user to the Products page
+        navigate("/products");
+        
+        console.log("Checkout Complete!"); // Add this line for debugging
+      } else {
+        // Handle errors or display a message to the user
+        console.error("Checkout failed:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+    }
   };
 
   return (
@@ -125,32 +158,40 @@ const Cart = ({ cart, dispatch }) => {
           )}
         </s.CartContainer>
         <s.CheckoutContainer>
-          <s.OrderInfo>
-            <s.OrderInfoItem>
-              <h5>Order Info</h5>
-            </s.OrderInfoItem>
-            <s.OrderInfoItem>
-              <span>Subtotal:</span>
-              <span>${getTotalPrice()}</span>
-            </s.OrderInfoItem>
-            <s.OrderInfoItem>
-              <span>Shipping Cost:</span>
-              <span>$10</span>
-            </s.OrderInfoItem>
-            <s.OrderInfoItem>
-              <p>Total:</p>
-              <p>${getTotalPrice() + 10}</p>
-            </s.OrderInfoItem>
-          </s.OrderInfo>
-          <s.CheckoutButton
-            onClick={handleCheckout}
-            disabled={cart.length === 0}
-          >
-            Checkout
-          </s.CheckoutButton>
-          <s.ContinueShoppingButton onClick={() => navigate("/products")}>
-            Continue Shopping
-          </s.ContinueShoppingButton>
+          {checkoutComplete ? (
+            <s.CheckoutCompleteMessage>
+              Checkout Complete! Thank you for your purchase.
+            </s.CheckoutCompleteMessage>
+          ) : (
+            <>
+              <s.OrderInfo>
+                <s.OrderInfoItem>
+                  <h5>Order Info</h5>
+                </s.OrderInfoItem>
+                <s.OrderInfoItem>
+                  <span>Subtotal:</span>
+                  <span>${getTotalPrice()}</span>
+                </s.OrderInfoItem>
+                <s.OrderInfoItem>
+                  <span>Shipping Cost:</span>
+                  <span>$10</span>
+                </s.OrderInfoItem>
+                <s.OrderInfoItem>
+                  <p>Total:</p>
+                  <p>${getTotalPrice() + 10}</p>
+                </s.OrderInfoItem>
+              </s.OrderInfo>
+              <s.CheckoutButton
+                onClick={handleCheckout}
+                disabled={cart.length === 0}
+              >
+                Checkout
+              </s.CheckoutButton>
+              <s.ContinueShoppingButton onClick={() => navigate("/products")}>
+                Continue Shopping
+              </s.ContinueShoppingButton>
+            </>
+          )}
         </s.CheckoutContainer>
       </s.InnerContainer>
     </s.Container>
