@@ -56,11 +56,11 @@ const Cart = ({ cart, dispatch }) => {
                   <s.ProductInfo>
                     <s.ProductImage
                       src={product.imageUrl}
-                      alt={product.ProductName}
+                      alt={product.productName}
                     />
                     <s.ProductDetailCover>
                       <s.ProductDetails>
-                        <s.ProductName>{product.ProductName}</s.ProductName>
+                        <s.ProductName>{product.productName}</s.ProductName>
                         <s.ProductDescription>
                           {product.description}
                         </s.ProductDescription>
