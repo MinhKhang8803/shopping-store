@@ -2,26 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addToCart } from '../redux/actions/cartActions'; 
-import {
-  ProductListContainer,
-  ProductCard,
-  ProductImage,
-  ProductInfo,
-  ProductTitle,
-  ProductDescription,
-  ProductPrice,
-  AddToCartButton,
-  DetailsLink
-} from '../styles/productlist';
-
+import { addToCart } from '../redux/actions/cartActions';
+import { ProductListContainer, ProductCard, ProductImage, ProductInfo, ProductTitle, ProductDescription, ProductPrice, AddToCartButton, DetailsLink } from '../styles/productlist';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProductList = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
-
 
   useEffect(() => {
     setLoading(true);
@@ -31,7 +21,7 @@ const ProductList = ({ addToCart }) => {
         setLoading(false);
       })
       .catch(error => {
-        error(error.message);
+        setError(error.message);
         setLoading(false);
       });
   }, []);
@@ -44,6 +34,19 @@ const ProductList = ({ addToCart }) => {
     setSelectedProduct(null);
   };
 
+  const handleAddToCart = (product) => {
+    const existingProductIndex = products.findIndex(
+      (item) => item.productId === product.productId
+    );
+
+    if (existingProductIndex !== -1) {
+      addToCart({ ...product, quantity: products[existingProductIndex].quantity + 1 });
+      toast.success('Product quantity updated successfully!');
+    } else {
+      addToCart({ ...product, quantity: 1 });
+      toast.success('Product added to cart successfully!');
+    }
+  };
 
   const renderProductList = () => (
     <ProductListContainer>
@@ -53,9 +56,7 @@ const ProductList = ({ addToCart }) => {
           <ProductInfo>
             <ProductTitle>{product.name || product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
-            
             <ProductPrice>${product.price}</ProductPrice>
-
             <DetailsLink
               to={`/product/${product.id || product.productId}`}
               onClick={handleDetailsLinkClick}
@@ -72,7 +73,6 @@ const ProductList = ({ addToCart }) => {
     if (selectedProduct) {
       return (
         <div style={{ maxWidth: '500px', position: 'fixed', top: '50px', left: '300px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', padding: '16px' }}>
-          {/* Added padding to the inner content */}
           <ProductImage
             src={selectedProduct.imageUrl}
             alt={selectedProduct.name}
@@ -81,8 +81,7 @@ const ProductList = ({ addToCart }) => {
           <h2>{selectedProduct.name || selectedProduct.productName}</h2>
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
-          <AddToCartButton onClick={() => addToCart(selectedProduct)}>Add to Cart</AddToCartButton>
-
+          <AddToCartButton onClick={() => handleAddToCart(selectedProduct)}>Add to Cart</AddToCartButton>
         </div>
       );
     }
