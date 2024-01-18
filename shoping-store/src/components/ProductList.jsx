@@ -1,6 +1,9 @@
 // ProductList.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { addToCart } from '../redux/actions/cartActions';
+
 import {
   ProductListContainer,
   ProductCard,
@@ -13,12 +16,12 @@ import {
   DetailsLink
 } from '../styles/productlist';
 
-const ProductList = () => {
+
+const ProductList = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -41,17 +44,6 @@ const ProductList = () => {
     setSelectedProduct(null);
   };
 
-  const handleAddToCart = (product) => {
-    setCart([...cart, product]);
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   const renderProductList = () => (
     <ProductListContainer>
@@ -62,9 +54,7 @@ const ProductList = () => {
             <ProductTitle>{product.name || product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
             <ProductPrice>${product.price}</ProductPrice>
-            <AddToCartButton onClick={() => handleAddToCart(product)}>
-              Add to Cart
-            </AddToCartButton>
+
             <DetailsLink
               to={`/product/${product.id || product.productId}`}
               onClick={handleDetailsLinkClick}
@@ -111,5 +101,14 @@ const ProductList = () => {
     </div>
   );
 };
+const mapStateToProps = (state) => ({
+    products: state.product.products,
+    loading: state.product.loading,
+    error: state.product.error,
+  });
+  const mapDispatchToProps = (dispatch) => ({
+    addToCart: (product) => dispatch(addToCart(product)),
+  });
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
 
-export default ProductList;
