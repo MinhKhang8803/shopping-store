@@ -41,7 +41,7 @@ export const CartContainer = styled.div`
   flex-direction: column;
 `;
 export const CheckoutContainer = styled.div`
-  width: 45%;
+  width: 40%;
   height: 300px;
   display: flex;
   flex-direction: column;
@@ -151,6 +151,7 @@ export const CheckoutButton = styled.button`
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   border-radius: 5px;
+  margin-bottom: 10px;
 
   &:hover {
     background-color: ${(props) => (props.disabled ? "#3b82f6" : "#2563eb")};
@@ -195,13 +196,14 @@ export { FiTrash2, FiPlus, FiMinus };
 
 export const OrderInfo = styled.div`
   background-color: #fff;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ccc;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   border-radius: 15px;
+  margin-bottom: 10px;
 `;
 
 export const OrderInfoItem = styled.div`
@@ -211,7 +213,22 @@ export const OrderInfoItem = styled.div`
   margin-bottom: 10px;
 
   span {
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  p {
+    font-size: 30px;
+    font-weight: Bold;
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+
+  h5 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 500;
   }
 `;
 
