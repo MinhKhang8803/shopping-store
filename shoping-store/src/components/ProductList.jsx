@@ -48,6 +48,7 @@ const ProductList = ({ addToCart }) => {
     setSelectedProduct(null);
   };
 
+
   const renderProductList = () => (
     <ProductListContainer>
       {products.map((product) => (
