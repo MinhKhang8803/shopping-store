@@ -30,10 +30,11 @@ const Cart = ({ cart, dispatch }) => {
   };
 
   const getTotalPrice = () => {
-    return cart.reduce(
+    const total = cart.reduce(
       (total, product) => total + product.price * product.quantity,
       0
     );
+    return parseFloat(total.toFixed(2));
   };
 
   const handleCheckout = () => {
