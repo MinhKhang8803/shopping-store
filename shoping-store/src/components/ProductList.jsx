@@ -4,6 +4,10 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { addToCart } from "../redux/actions/cartActions";
 import {
+  FaPlus,
+  FaMinus,
+} from "react-icons/fa";
+import {
   ProductListContainer,
   ProductCard,
   ProductImage,
@@ -13,9 +17,8 @@ import {
   ProductPrice,
   AddToCartButton,
   DetailsLink,
+  QuantityControl,
 } from "../styles/productlist";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 const ProductList = ({ addToCart }) => {
@@ -36,7 +39,7 @@ const ProductList = ({ addToCart }) => {
         setLoading(false);
       })
       .catch((error) => {
-        error(error.message);
+        setError(error.message);
 
         setLoading(false);
       });
@@ -50,19 +53,6 @@ const ProductList = ({ addToCart }) => {
     setSelectedProduct(null);
   };
 
-  const handleAddToCart = (product) => {
-    const existingProductIndex = products.findIndex(
-      (item) => item.productId === product.productId
-    );
-
-    if (existingProductIndex !== -1) {
-      addToCart({ ...product, quantity: products[existingProductIndex].quantity + 1 });
-      toast.success('👏 Add successfully!');
-    } else {
-      addToCart({ ...product, quantity: 1 });
-      toast.success('👏 Add successfully!');
-    }
-  };
 
   const renderProductList = () => (
     <ProductListContainer>
@@ -112,25 +102,26 @@ const ProductList = ({ addToCart }) => {
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
 
-          <AddToCartButton onClick={() => handleAddToCart(selectedProduct)}>Add to Cart</AddToCartButton>
+          <AddToCartButton onClick={() => addToCart(selectedProduct, quantity)}>
+          Add to Cart
+        </AddToCartButton>
 
-          <div style={{ width: "30%" }}>
-            {selectedProduct ? (
-              <div>
-                <label htmlFor="quantity">Quantity:</label>
-                <input
-                  type="number"
-                  id="quantity"
-                  value={quantity}
-                  min={1}
-                  onChange={(e) =>
-                    setQuantity(Math.max(1, parseInt(e.target.value, 10)))
-                  }
-                />
-              </div>
-            ) : null}
+        <QuantityControl>
+          <label htmlFor="quantity">Quantity:</label>
+          <div>
+            <FaMinus onClick={() => setQuantity(Math.max(1, quantity - 1))} />
+            <input
+              type="number"
+              id="quantity"
+              value={quantity}
+              min={1}
+              onChange={(e) =>
+                setQuantity(Math.max(1, parseInt(e.target.value, 10)))
+              }
+            />
+            <FaPlus onClick={() => setQuantity(quantity + 1)} />
           </div>
-
+        </QuantityControl>
         </div>
       );
     }
