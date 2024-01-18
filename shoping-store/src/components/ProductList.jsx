@@ -45,14 +45,6 @@ const ProductList = () => {
     setCart([...cart, product]);
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
   const renderProductList = () => (
     <ProductListContainer>
       {products.map((product) => (
@@ -62,9 +54,6 @@ const ProductList = () => {
             <ProductTitle>{product.name || product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
             <ProductPrice>${product.price}</ProductPrice>
-            <AddToCartButton onClick={() => handleAddToCart(product)}>
-              Add to Cart
-            </AddToCartButton>
             <DetailsLink
               to={`/product/${product.id || product.productId}`}
               onClick={handleDetailsLinkClick}
@@ -80,7 +69,8 @@ const ProductList = () => {
   const renderFullProductInfo = () => {
     if (selectedProduct) {
       return (
-        <div style={{ maxWidth: '500px', marginLeft: '20px' }}>
+        <div style={{ maxWidth: '500px', marginLeft: '300px' }}>
+          {/* Adjusted marginLeft value */}
           <h2>{selectedProduct.name || selectedProduct.productName}</h2>
           <ProductImage
             src={selectedProduct.imageUrl}
@@ -89,12 +79,23 @@ const ProductList = () => {
           />
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
+          <AddToCartButton onClick={() => handleAddToCart(selectedProduct)}>
+            Add to Cart
+          </AddToCartButton>
         </div>
       );
     }
 
     return <div>Please select a product</div>;
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
