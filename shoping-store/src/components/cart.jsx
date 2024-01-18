@@ -1,13 +1,14 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { FiTrash2, FiPlus, FiMinus } from "react-icons/fi";
-import { removeFromCart, updateCartItem } from "../redux/actions/cartActions";
+import React, {useState} from "react";
+import {connect} from "react-redux";
+import {FiTrash2, FiPlus, FiMinus} from "react-icons/fi";
+import {removeFromCart, updateCartItem} from "../redux/actions/cartActions";
 import * as s from "../styles/cart";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-const Cart = ({ cart, dispatch }) => {
+const Cart = ({cart, dispatch}) => {
   const navigate = useNavigate();
   const [deleteConfirmation, setDeleteConfirmation] = useState(null);
+  const [checkoutComplete, setCheckoutComplete] = useState(false);
 
   const handleQuantityChange = (productId, newQuantity) => {
     if (newQuantity === 0) {
@@ -24,7 +25,7 @@ const Cart = ({ cart, dispatch }) => {
     }
   };
 
-  const handleDelete = (productId) => {
+  const handleDelete = productId => {
     dispatch(removeFromCart(productId));
     setDeleteConfirmation(null);
   };
@@ -32,13 +33,45 @@ const Cart = ({ cart, dispatch }) => {
   const getTotalPrice = () => {
     const total = cart.reduce(
       (total, product) => total + product.price * product.quantity,
-      0
+      0,
     );
     return parseFloat(total.toFixed(2));
   };
 
-  const handleCheckout = () => {
-    alert("Checkout logic goes here!");
+  const handleCheckout = async () => {
+    if (cart.length === 0) {
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:5000/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(cart),
+      });
+
+      if (response.ok) {
+        // If the server returns a successful result, remove each item from the cart
+        cart.forEach(product => {
+          dispatch(removeFromCart(product.productId));
+        });
+
+        setDeleteConfirmation(null);
+        setCheckoutComplete(true);
+
+        // Redirect the user to the Products page
+        navigate("/products");
+
+        console.log("Checkout Complete!"); // Add this line for debugging
+      } else {
+        // Handle errors or display a message to the user
+        console.error("Checkout failed:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+    }
   };
 
   return (
@@ -53,7 +86,7 @@ const Cart = ({ cart, dispatch }) => {
               You have no products in cart.
             </s.EmptyCartMessage>
           ) : (
-            cart.map((product) => (
+            cart.map(product => (
               <s.ProductContainer key={product.productId}>
                 <s.ProductDetailContainer>
                   <s.ProductInfo>
@@ -74,16 +107,15 @@ const Cart = ({ cart, dispatch }) => {
                             onClick={() =>
                               handleQuantityChange(
                                 product.productId,
-                                product.quantity - 1
+                                product.quantity - 1,
                               )
-                            }
-                          >
+                            }>
                             <FiMinus />
                           </s.QuantityButton>
                           <s.InputAsSpan
                             type="number"
                             value={product.quantity}
-                            onChange={(e) =>
+                            onChange={e =>
                               handleQuantityInputChange(product.productId, e)
                             }
                           />
@@ -91,10 +123,9 @@ const Cart = ({ cart, dispatch }) => {
                             onClick={() =>
                               handleQuantityChange(
                                 product.productId,
-                                product.quantity + 1
+                                product.quantity + 1,
                               )
-                            }
-                          >
+                            }>
                             <FiPlus />
                           </s.QuantityButton>
                         </s.QuantityButtonCover>
@@ -104,8 +135,9 @@ const Cart = ({ cart, dispatch }) => {
                   </s.ProductInfo>
                   <s.QuantityContainer>
                     <s.DeleteButton
-                      onClick={() => handleQuantityChange(product.productId, 0)}
-                    >
+                      onClick={() =>
+                        handleQuantityChange(product.productId, 0)
+                      }>
                       <FiTrash2 />
                     </s.DeleteButton>
                   </s.QuantityContainer>
@@ -125,39 +157,46 @@ const Cart = ({ cart, dispatch }) => {
           )}
         </s.CartContainer>
         <s.CheckoutContainer>
-          <s.OrderInfo>
-            <s.OrderInfoItem>
-              <h5>Order Info</h5>
-            </s.OrderInfoItem>
-            <s.OrderInfoItem>
-              <span>Subtotal:</span>
-              <span>${getTotalPrice()}</span>
-            </s.OrderInfoItem>
-            <s.OrderInfoItem>
-              <span>Shipping Cost:</span>
-              <span>$10</span>
-            </s.OrderInfoItem>
-            <s.OrderInfoItem>
-              <p>Total:</p>
-              <p>${getTotalPrice() + 10}</p>
-            </s.OrderInfoItem>
-          </s.OrderInfo>
-          <s.CheckoutButton
-            onClick={handleCheckout}
-            disabled={cart.length === 0}
-          >
-            Checkout
-          </s.CheckoutButton>
-          <s.ContinueShoppingButton onClick={() => navigate("/products")}>
-            Continue Shopping
-          </s.ContinueShoppingButton>
+          {checkoutComplete ? (
+            <s.CheckoutCompleteMessage>
+              Checkout Complete! Thank you for your purchase.
+            </s.CheckoutCompleteMessage>
+          ) : (
+            <>
+              <s.OrderInfo>
+                <s.OrderInfoItem>
+                  <h5>Order Info</h5>
+                </s.OrderInfoItem>
+                <s.OrderInfoItem>
+                  <span>Subtotal:</span>
+                  <span>${getTotalPrice()}</span>
+                </s.OrderInfoItem>
+                <s.OrderInfoItem>
+                  <span>Shipping Cost:</span>
+                  <span>$10</span>
+                </s.OrderInfoItem>
+                <s.OrderInfoItem>
+                  <p>Total:</p>
+                  <p>${getTotalPrice() + 10}</p>
+                </s.OrderInfoItem>
+              </s.OrderInfo>
+              <s.CheckoutButton
+                onClick={handleCheckout}
+                disabled={cart.length === 0}>
+                Checkout
+              </s.CheckoutButton>
+              <s.ContinueShoppingButton onClick={() => navigate("/products")}>
+                Continue Shopping
+              </s.ContinueShoppingButton>
+            </>
+          )}
         </s.CheckoutContainer>
       </s.InnerContainer>
     </s.Container>
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   cart: state.cart.cartItems,
 });
 

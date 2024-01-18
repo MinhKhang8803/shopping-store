@@ -1,4 +1,3 @@
-// ../styles/productlist.js
 import styled from 'styled-components';
 
 const mobileMaxWidth = '768px';
