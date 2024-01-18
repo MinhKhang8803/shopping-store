@@ -71,14 +71,14 @@ const ProductList = ({ addToCart }) => {
   const renderFullProductInfo = () => {
     if (selectedProduct) {
       return (
-        <div style={{ maxWidth: '500px', marginLeft: '300px' }}>
-          {/* Adjusted marginLeft value */}
-          <h2>{selectedProduct.name || selectedProduct.productName}</h2>
+        <div style={{ maxWidth: '500px', position: 'fixed', top: '50px', left: '300px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', padding: '16px' }}>
+          {/* Added padding to the inner content */}
           <ProductImage
             src={selectedProduct.imageUrl}
             alt={selectedProduct.name}
             style={{ maxWidth: '100%', maxHeight: '400px' }}
           />
+          <h2>{selectedProduct.name || selectedProduct.productName}</h2>
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
           <AddToCartButton onClick={() => addToCart(selectedProduct)}>Add to Cart</AddToCartButton>
