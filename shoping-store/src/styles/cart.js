@@ -246,3 +246,4 @@ export const ContinueShoppingButton = styled.button`
     color: #fff;
   }
 `;
+
