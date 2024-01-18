@@ -1,7 +1,9 @@
+
 // Trong file styles/header.js
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { FaCartShopping } from "react-icons/fa6";
+
 
 export const HeaderContainer = styled.div`
   background-color: white;
@@ -44,7 +46,9 @@ export const NavLink = styled(Link)`
   color: #777;
   text-decoration: none;
   font-weight: normal;
-  transition: color 0.3s, font-weight 0.3s;
+  transition:
+    color 0.3s,
+    font-weight 0.3s;
 
   &:hover {
     color: #000;
@@ -92,8 +96,10 @@ export const CartLink = styled(Link)`
 
   @media (max-width: 768px) {
     justify-content: flex-start;
+
     flex-direction: column;
     align-items: flex-end;
+
   }
 `;
 

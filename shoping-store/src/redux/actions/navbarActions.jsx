@@ -1,3 +1,3 @@
 export const toggleNavbar = () => ({
-    type: 'TOGGLE_NAVBAR',
-  });
+  type: "TOGGLE_NAVBAR",
+});
