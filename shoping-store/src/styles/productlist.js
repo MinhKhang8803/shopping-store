@@ -62,3 +62,27 @@ export const DetailsLink = styled.a`
   margin-top: 8px;
   display: block;
 `;
+
+export const QuantityControl = styled.div`
+  display: flex;
+  align-items: center;
+
+  label {
+    margin-right: 8px;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+
+    svg {
+      cursor: pointer;
+      margin: 0 4px;
+    }
+
+    input {
+      width: 40px;
+      text-align: center;
+    }
+  }
+`;
