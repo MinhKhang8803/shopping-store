@@ -14,8 +14,6 @@ import {
   AddToCartButton,
   DetailsLink,
 } from "../styles/productlist";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 
 const ProductList = ({ addToCart }) => {
@@ -36,7 +34,7 @@ const ProductList = ({ addToCart }) => {
         setLoading(false);
       })
       .catch((error) => {
-        error(error.message);
+        setError(error.message);
 
         setLoading(false);
       });
@@ -50,7 +48,6 @@ const ProductList = ({ addToCart }) => {
     setSelectedProduct(null);
   };
 
-  
 
   const renderProductList = () => (
     <ProductListContainer>
