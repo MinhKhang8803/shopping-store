@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -14,12 +15,15 @@ import {
   DetailsLink,
 } from "../styles/productlist";
 
+
 const ProductList = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
+
   const [quantity, setQuantity] = useState(1);
+
 
   useEffect(() => {
     setLoading(true);
@@ -31,6 +35,7 @@ const ProductList = ({ addToCart }) => {
       })
       .catch((error) => {
         error(error.message);
+
         setLoading(false);
       });
   }, []);
@@ -42,6 +47,7 @@ const ProductList = ({ addToCart }) => {
   const handleDetailsLinkClick = () => {
     setSelectedProduct(null);
   };
+
 
   const renderProductList = () => (
     <ProductListContainer>
@@ -70,6 +76,7 @@ const ProductList = ({ addToCart }) => {
   const renderFullProductInfo = () => {
     if (selectedProduct) {
       return (
+
         <div
           style={{
             maxWidth: "500px",
@@ -83,6 +90,7 @@ const ProductList = ({ addToCart }) => {
         >
           {/* Added padding to the inner content */}
 
+
           <ProductImage
             src={selectedProduct.imageUrl}
             alt={selectedProduct.name}
@@ -91,6 +99,7 @@ const ProductList = ({ addToCart }) => {
           <h2>{selectedProduct.name || selectedProduct.productName}</h2>
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
+
           <AddToCartButton onClick={() => addToCart(selectedProduct, quantity)}>
             Add to Cart
           </AddToCartButton>
@@ -110,6 +119,7 @@ const ProductList = ({ addToCart }) => {
               </div>
             ) : null}
           </div>
+
         </div>
       );
     }
