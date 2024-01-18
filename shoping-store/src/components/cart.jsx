@@ -30,10 +30,11 @@ const Cart = ({ cart, dispatch }) => {
   };
 
   const getTotalPrice = () => {
-    return cart.reduce(
+    const total = cart.reduce(
       (total, product) => total + product.price * product.quantity,
       0
     );
+    return parseFloat(total.toFixed(2));
   };
 
   const handleCheckout = () => {
@@ -56,11 +57,11 @@ const Cart = ({ cart, dispatch }) => {
                   <s.ProductInfo>
                     <s.ProductImage
                       src={product.imageUrl}
-                      alt={product.ProductName}
+                      alt={product.productName}
                     />
                     <s.ProductDetailCover>
                       <s.ProductDetails>
-                        <s.ProductName>{product.ProductName}</s.ProductName>
+                        <s.ProductName>{product.productName}</s.ProductName>
                         <s.ProductDescription>
                           {product.description}
                         </s.ProductDescription>
