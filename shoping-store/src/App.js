@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import Header from "./components/Header";
+import Home from "./components/home";
 import Cart from "./components/cart";
 import ProductList from "./components/ProductList";
 
@@ -13,6 +14,7 @@ function App() {
       <Router>
         <Header />
         <Routes>
+          <Route path="/home" element={<Home />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
