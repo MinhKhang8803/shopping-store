@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {FiTrash2, FiPlus, FiMinus} from "react-icons/fi";
+import { FiTrash2, FiPlus, FiMinus } from "react-icons/fi";
 
 export const Container = styled.div`
   background-color: #e5e7eb;
@@ -25,10 +25,7 @@ export const InnerContainer = styled.div`
   width: 80%;
   display: flex;
   justify-content: center;
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
-`;
+ `;
 export const ProductDetailContainer = styled.div`
   display: flex;
   align-items: center;
@@ -37,10 +34,6 @@ export const ProductDetailContainer = styled.div`
   border-radius: 5px;
   width: 140%;
   height: 25vh;
-  @media (max-width: 768px) {
-    flex-direction: column;
-    height: auto;
-  }
 `;
 export const CartContainer = styled.div`
   width: 80%;
@@ -53,10 +46,6 @@ export const CheckoutContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  @media (max-width: 768px) {
-    width: 100%;
-    margin-top: 20px;
-  }
 `;
 export const ProductInfo = styled.div`
   display: flex;
@@ -112,7 +101,7 @@ export const InputAsSpan = styled.input`
   padding: 0;
   font-size: 1em;
   color: #333;
-  width: 50px;
+  width: 70px; /* Adjust the width as needed */
   text-align: center;
   background: transparent;
   appearance: textfield;
@@ -159,13 +148,13 @@ export const CheckoutButton = styled.button`
   color: #fff;
   border: none;
   padding: 10px;
-  cursor: ${props => (props.disabled ? "not-allowed" : "pointer")};
-  opacity: ${props => (props.disabled ? 0.5 : 1)};
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
   border-radius: 5px;
   margin-bottom: 10px;
 
   &:hover {
-    background-color: ${props => (props.disabled ? "#3b82f6" : "#2563eb")};
+    background-color: ${(props) => (props.disabled ? "#3b82f6" : "#2563eb")};
   }
 `;
 
@@ -203,7 +192,7 @@ export const ConfirmationPopup = styled.div`
   z-index: 999;
 `;
 
-export {FiTrash2, FiPlus, FiMinus};
+export { FiTrash2, FiPlus, FiMinus };
 
 export const OrderInfo = styled.div`
   background-color: #fff;
@@ -250,9 +239,7 @@ export const ContinueShoppingButton = styled.button`
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
     background-color: #3b82f6;
@@ -261,8 +248,9 @@ export const ContinueShoppingButton = styled.button`
 `;
 
 export const CheckoutCompleteMessage = styled.p`
-  color: green;
+  color: green; 
   font-size: 18px;
   margin-top: 10px;
   text-align: center;
 `;
+

@@ -1,4 +1,4 @@
-module.exports = {
+{
     "env": {
         "browser": true,
         "commonjs": true,
@@ -11,25 +11,26 @@ module.exports = {
                 "node": true
             },
             "files": [
-                ".eslintrc.{js,cjs}"
+                ".eslintrc"
             ],
             "parserOptions": {
-                "sourceType": "script"
+                "sourceType": "module"
             }
         }
     ],
-    "parser": "babel-eslint",
+    
+    "rules": {
+        "react/prop-types": "off"
+      },
   "parserOptions": {
     "sourceType": "module",
-    "allowImportExportEverywhere": true
-  },
-    "parserOptions": {
-        "ecmaVersion": "latest"
-    },
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": "latest"
+},
+
     "plugins": [
         "react"
-    ],
-    "rules": {
-    }
+    ]
+
     
 }
