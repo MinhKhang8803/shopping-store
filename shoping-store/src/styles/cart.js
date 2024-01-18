@@ -148,8 +148,13 @@ export const CheckoutButton = styled.button`
   color: #fff;
   border: none;
   padding: 10px;
-  cursor: pointer;
-  width: 100%; // Set width to 100% to match CheckoutContainer
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+  border-radius: 5px;
+
+  &:hover {
+    background-color: ${(props) => (props.disabled ? "#3b82f6" : "#2563eb")};
+  }
 `;
 
 export const Title = styled.div`
@@ -211,11 +216,16 @@ export const OrderInfoItem = styled.div`
 `;
 
 export const ContinueShoppingButton = styled.button`
-  background-color: #3b82f6; // Adjust color as needed
-  color: #fff;
-  border: none;
-  padding: 10px;
+  background-color: transparent;
+  color: #3b82f6;
+  border: 2px solid #3b82f6;
+  padding: 10px 15px;
+  border-radius: 5px;
   cursor: pointer;
-  width: 100%; // Set width to 100% to match CheckoutContainer
-  margin-top: 10px; // Add margin for separation
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: #3b82f6;
+    color: #fff;
+  }
 `;
