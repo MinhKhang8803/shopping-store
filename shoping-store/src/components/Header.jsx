@@ -1,11 +1,14 @@
 // Header.jsx
 import React from 'react';
-import { HeaderContainer, HeaderWrapper, Nav, NavLink, Title, CartLink, StyledCartIcon, Dot } from '../styles/header';
+import { useSelector } from 'react-redux';
+import { HeaderContainer, HeaderWrapper, Nav, NavLink, Title, CartLink, StyledCartIcon, Dot, CartItemCount, } from '../styles/header';
 import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
     const location = useLocation();
-
+    const cart = useSelector((state) => state.cart);
+    
+    console.log('Cart state:', cart);
     return (
         <HeaderContainer>
             <HeaderWrapper>
@@ -26,6 +29,7 @@ const Header = () => {
                 <Title>Beauty.bd</Title>
                 <CartLink as={Link} to="/cart">
                     <StyledCartIcon />
+                    {cart.length > 0 && <CartItemCount>{cart.length}</CartItemCount>}
                 </CartLink>
             </HeaderWrapper>
         </HeaderContainer>

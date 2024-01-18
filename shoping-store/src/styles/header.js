@@ -58,6 +58,7 @@ export const Title = styled.h2`
 `;
 
 export const CartLink = styled(Link)`
+  position: relative;
   color: black;
   text-decoration: none;
   display: flex;
@@ -71,4 +72,16 @@ export const StyledCartIcon = styled(FaCartShopping)`
   color: #3b82f6;
   font-size: 1.5rem;
   margin-right: 5px;
+`;
+
+export const CartItemCount = styled.span`
+  position: absolute;
+  top: 50%; /* Adjust the vertical positioning */
+  right: 50%; /* Adjust the horizontal positioning */
+  transform: translate(50%, -50%);
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 4px;
+  font-size: 12px;
 `;
