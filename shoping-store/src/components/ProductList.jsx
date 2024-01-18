@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { addToCart } from '../redux/actions/cartActions';
+import { addToCart } from '../redux/actions/cartActions'; 
 
 import {
   ProductListContainer,
@@ -23,15 +23,16 @@ const ProductList = ({ addToCart }) => {
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+
   useEffect(() => {
-    setLoading(true);
+    loading(true);
     axios.get('http://localhost:4000/api/products')
       .then(response => {
         setProducts(response.data);
         setLoading(false);
       })
       .catch(error => {
-        setError(error.message);
+        error(error.message);
         setLoading(false);
       });
   }, []);
@@ -53,6 +54,7 @@ const ProductList = ({ addToCart }) => {
           <ProductInfo>
             <ProductTitle>{product.name || product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
+            <AddToCartButton onClick={() => addToCart(product)}>Add to Cart</AddToCartButton>
             <ProductPrice>${product.price}</ProductPrice>
 
             <DetailsLink
@@ -101,14 +103,9 @@ const ProductList = ({ addToCart }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({
-    products: state.product.products,
-    loading: state.product.loading,
-    error: state.product.error,
-  });
-  const mapDispatchToProps = (dispatch) => ({
-    addToCart: (product) => dispatch(addToCart(product)),
-  });
-  
-  export default connect(mapStateToProps, mapDispatchToProps)(ProductList);
 
+const mapDispatchToProps = (dispatch) => ({
+  addToCart: (product) => dispatch(addToCart(product)),
+});
+
+export default connect(null, mapDispatchToProps)(ProductList);
