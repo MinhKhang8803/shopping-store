@@ -8,20 +8,19 @@ export const ProductListContainer = styled.div`
 `;
 
 export const ProductCard = styled.div`
-  border: 1px solid #ccc;
+  display: flex;
+  background-color: #fff;
+  margin-bottom: 15px;
   border-radius: 8px;
-  padding: 16px;
-  cursor: pointer;
-  transition: transform 0.3s ease-in-out;
-
-  &:hover {
-    transform: scale(1.05);
-  }
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  width: 360px;
 `;
 
 export const ProductImage = styled.img`
-  max-width: 100%;
-  height: auto;
+  max-width: 100px;
+  max-height: 100px;
   border-radius: 8px;
 `;
 
@@ -34,7 +33,13 @@ export const ProductTitle = styled.h3`
 `;
 
 export const ProductDescription = styled.p`
-  margin-bottom: 8px;
+  color: #666;
+  font-size: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 170px;
+  display: block;
 `;
 
 export const ProductPrice = styled.p`
@@ -48,6 +53,7 @@ export const AddToCartButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-top: 8px; /* Adjust margin as needed */
 `;
 
 export const DetailsLink = styled.a`

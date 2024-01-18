@@ -48,7 +48,7 @@ const Cart = ({ cart, dispatch }) => {
       <s.InnerContainer>
         <s.CartContainer>
           {cart.length === 0 ? (
-            <s.EmptyCartMessage>You have no products in the cart.</s.EmptyCartMessage>
+            <s.EmptyCartMessage>You have no products in cart.</s.EmptyCartMessage>
           ) : (
             cart.map((product) => (
               <s.ProductContainer key={product.productId}>
@@ -120,7 +120,9 @@ const Cart = ({ cart, dispatch }) => {
         </s.CartContainer>
         <s.CheckoutContainer>
           <s.OrderInfo>
-            <h3>Oder Info</h3>
+            <s.OrderInfoItem>
+              <h5>Order Info</h5>
+            </s.OrderInfoItem>
             <s.OrderInfoItem>
               <span>Subtotal:</span>
               <span>${getTotalPrice()}</span>
@@ -130,8 +132,8 @@ const Cart = ({ cart, dispatch }) => {
               <span>$10</span>
             </s.OrderInfoItem>
             <s.OrderInfoItem>
-              <span>Total:</span>
-              <span>${getTotalPrice() + 10}</span>
+              <p>Total:</p>
+              <p>${getTotalPrice() + 10}</p>
             </s.OrderInfoItem>
           </s.OrderInfo>
           <s.CheckoutButton

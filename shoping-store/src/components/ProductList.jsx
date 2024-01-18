@@ -1,6 +1,8 @@
 // ProductList.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { addToCart } from '../redux/actions/cartActions'; 
 import {
   ProductListContainer,
   ProductCard,
@@ -13,12 +15,13 @@ import {
   DetailsLink
 } from '../styles/productlist';
 
-const ProductList = () => {
+
+const ProductList = ({ addToCart }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [cart, setCart] = useState([]);
+
 
   useEffect(() => {
     setLoading(true);
@@ -28,7 +31,7 @@ const ProductList = () => {
         setLoading(false);
       })
       .catch(error => {
-        setError(error.message);
+        error(error.message);
         setLoading(false);
       });
   }, []);
@@ -41,17 +44,6 @@ const ProductList = () => {
     setSelectedProduct(null);
   };
 
-  const handleAddToCart = (product) => {
-    setCart([...cart, product]);
-  };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   const renderProductList = () => (
     <ProductListContainer>
@@ -61,10 +53,9 @@ const ProductList = () => {
           <ProductInfo>
             <ProductTitle>{product.name || product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
+            
             <ProductPrice>${product.price}</ProductPrice>
-            <AddToCartButton onClick={() => handleAddToCart(product)}>
-              Add to Cart
-            </AddToCartButton>
+
             <DetailsLink
               to={`/product/${product.id || product.productId}`}
               onClick={handleDetailsLinkClick}
@@ -80,7 +71,8 @@ const ProductList = () => {
   const renderFullProductInfo = () => {
     if (selectedProduct) {
       return (
-        <div style={{ maxWidth: '500px', marginLeft: '20px' }}>
+        <div style={{ maxWidth: '500px', marginLeft: '300px' }}>
+          {/* Adjusted marginLeft value */}
           <h2>{selectedProduct.name || selectedProduct.productName}</h2>
           <ProductImage
             src={selectedProduct.imageUrl}
@@ -89,12 +81,22 @@ const ProductList = () => {
           />
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
+          <AddToCartButton onClick={() => addToCart(selectedProduct)}>Add to Cart</AddToCartButton>
+
         </div>
       );
     }
 
     return <div>Please select a product</div>;
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
@@ -112,4 +114,8 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+const mapDispatchToProps = (dispatch) => ({
+  addToCart: (product) => dispatch(addToCart(product)),
+});
+
+export default connect(null, mapDispatchToProps)(ProductList);
