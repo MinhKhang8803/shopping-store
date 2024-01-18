@@ -4,8 +4,6 @@ import createSagaMiddleware from 'redux-saga';
 import productReducer from '../redux/reducers/productReducer';
 import cartReducer from '../redux/reducers/cartReducer';
 import checkoutReducer from '../redux/reducers/checkoutReducer';
-import productSaga from '../sagas/productSaga';
-import checkoutSaga from '../sagas/checkoutSaga';
 
 const rootReducer = combineReducers({
   product: productReducer,
@@ -22,8 +20,5 @@ const store = createStore(
   rootReducer,
   composeEnhancers(applyMiddleware(sagaMiddleware))
 );
-
-sagaMiddleware.run(productSaga);
-sagaMiddleware.run(checkoutSaga);
 
 export default store;
