@@ -25,6 +25,9 @@ export const InnerContainer = styled.div`
   width: 80%;
   display: flex;
   justify-content: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 export const ProductDetailContainer = styled.div`
   display: flex;
@@ -34,6 +37,10 @@ export const ProductDetailContainer = styled.div`
   border-radius: 5px;
   width: 140%;
   height: 25vh;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 export const CartContainer = styled.div`
   width: 80%;
@@ -46,6 +53,10 @@ export const CheckoutContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-top: 20px;
+  }
 `;
 export const ProductInfo = styled.div`
   display: flex;

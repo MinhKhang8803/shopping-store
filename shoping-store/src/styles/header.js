@@ -13,6 +13,7 @@ export const HeaderWrapper = styled.div`
   justify-content: space-between;
   padding: 10px;
   gap: 1rem;
+  flex-wrap: wrap;
 `;
 
 export const Nav = styled.div`
@@ -66,6 +67,9 @@ export const CartLink = styled(Link)`
   justify-content: flex-end;
   margin-right: 3rem;
   gap: 7rem;
+  @media (max-width: 768px) {
+    justify-content: flex-start; 
+  }
 `;
 
 export const StyledCartIcon = styled(FaCartShopping)`
@@ -76,8 +80,8 @@ export const StyledCartIcon = styled(FaCartShopping)`
 
 export const CartItemCount = styled.span`
   position: absolute;
-  top: 50%; /* Adjust the vertical positioning */
-  right: 50%; /* Adjust the horizontal positioning */
+  top: 50%;
+  right: 50%; 
   transform: translate(50%, -50%);
   background-color: red;
   color: white;
