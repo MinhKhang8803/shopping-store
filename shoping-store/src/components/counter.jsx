@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { increment, decrement } from '../redux/actions/counterActions';
+import React from "react";
+import { connect } from "react-redux";
+import { increment, decrement } from "../redux/actions/counterActions";
 
 const Counter = ({ count, increment, decrement }) => {
   return (
@@ -14,7 +14,7 @@ const Counter = ({ count, increment, decrement }) => {
 
 const mapStateToProps = (state) => {
   return {
-    count: state.counter, // Assuming you have a 'counter' reducer in your rootReducer
+    count: state.counter,
   };
 };
 

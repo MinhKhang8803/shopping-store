@@ -1,8 +1,8 @@
-// ProductList.jsx
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { addToCart } from '../redux/actions/cartActions'; 
+
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import { addToCart } from "../redux/actions/cartActions";
 import {
   ProductListContainer,
   ProductCard,
@@ -12,8 +12,10 @@ import {
   ProductDescription,
   ProductPrice,
   AddToCartButton,
-  DetailsLink
-} from '../styles/productlist';
+  DetailsLink,
+} from "../styles/productlist";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const ProductList = ({ addToCart }) => {
@@ -22,16 +24,20 @@ const ProductList = ({ addToCart }) => {
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  const [quantity, setQuantity] = useState(1);
+
 
   useEffect(() => {
     setLoading(true);
-    axios.get('http://localhost:4000/api/products')
-      .then(response => {
+    axios
+      .get("http://localhost:4000/api/products")
+      .then((response) => {
         setProducts(response.data);
         setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         error(error.message);
+
         setLoading(false);
       });
   }, []);
@@ -44,18 +50,32 @@ const ProductList = ({ addToCart }) => {
     setSelectedProduct(null);
   };
 
+  const handleAddToCart = (product) => {
+    const existingProductIndex = products.findIndex(
+      (item) => item.productId === product.productId
+    );
+
+    if (existingProductIndex !== -1) {
+      addToCart({ ...product, quantity: products[existingProductIndex].quantity + 1 });
+      toast.success('👏 Add successfully!');
+    } else {
+      addToCart({ ...product, quantity: 1 });
+      toast.success('👏 Add successfully!');
+    }
+  };
 
   const renderProductList = () => (
     <ProductListContainer>
       {products.map((product) => (
-        <ProductCard key={product.productId} onClick={() => handleProductClick(product)}>
-          <ProductImage src={product.imageUrl} alt={product.name} />
+        <ProductCard
+          key={product.productId}
+          onClick={() => handleProductClick(product)}
+        >
+          <ProductImage src={product.imageUrl} alt={product.productName} />
           <ProductInfo>
-            <ProductTitle>{product.name || product.productName}</ProductTitle>
+            <ProductTitle>{product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
-            
             <ProductPrice>${product.price}</ProductPrice>
-
             <DetailsLink
               to={`/product/${product.id || product.productId}`}
               onClick={handleDetailsLinkClick}
@@ -71,17 +91,45 @@ const ProductList = ({ addToCart }) => {
   const renderFullProductInfo = () => {
     if (selectedProduct) {
       return (
-        <div style={{ maxWidth: '500px', marginLeft: '300px' }}>
-          {/* Adjusted marginLeft value */}
-          <h2>{selectedProduct.name || selectedProduct.productName}</h2>
+
+        <div
+          style={{
+            maxWidth: "500px",
+            position: "fixed",
+            top: "50px",
+            left: "300px",
+            borderRadius: "8px",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+            padding: "16px",
+          }}
+        >
           <ProductImage
             src={selectedProduct.imageUrl}
             alt={selectedProduct.name}
-            style={{ maxWidth: '100%', maxHeight: '400px' }}
+            style={{ maxWidth: "100%", maxHeight: "400px" }}
           />
+          <h2>{selectedProduct.name || selectedProduct.productName}</h2>
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
-          <AddToCartButton onClick={() => addToCart(selectedProduct)}>Add to Cart</AddToCartButton>
+
+          <AddToCartButton onClick={() => handleAddToCart(selectedProduct)}>Add to Cart</AddToCartButton>
+
+          <div style={{ width: "30%" }}>
+            {selectedProduct ? (
+              <div>
+                <label htmlFor="quantity">Quantity:</label>
+                <input
+                  type="number"
+                  id="quantity"
+                  value={quantity}
+                  min={1}
+                  onChange={(e) =>
+                    setQuantity(Math.max(1, parseInt(e.target.value, 10)))
+                  }
+                />
+              </div>
+            ) : null}
+          </div>
 
         </div>
       );
@@ -99,23 +147,21 @@ const ProductList = ({ addToCart }) => {
   }
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', padding: '20px' }}>
-      <div style={{ width: '70%' }}>
+    <div style={{ display: "flex", justifyContent: "center", padding: "20px" }}>
+      <div style={{ width: "70%" }}>
         {selectedProduct ? (
           renderFullProductInfo()
         ) : (
-          <img src="defaultImageUrl" alt="Default" style={{ width: '100%' }} />
+          <img src="defaultImageUrl" alt="Default" style={{ width: "100%" }} />
         )}
       </div>
-      <div style={{ width: '30%' }}>
-        {renderProductList()}
-      </div>
+      <div style={{ width: "30%" }}>{renderProductList()}</div>
     </div>
   );
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addToCart: (product) => dispatch(addToCart(product)),
+  addToCart: (product, quantity) => dispatch(addToCart(product, quantity)),
 });
 
 export default connect(null, mapDispatchToProps)(ProductList);

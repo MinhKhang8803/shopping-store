@@ -112,7 +112,7 @@ export const InputAsSpan = styled.input`
   padding: 0;
   font-size: 1em;
   color: #333;
-  width: 70px; /* Adjust the width as needed */
+  width: 50px;
   text-align: center;
   background: transparent;
   appearance: textfield;

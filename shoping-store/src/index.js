@@ -1,13 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import store from './redux/store';
-import App from './App';
-import './index.css';
+// index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
-  <Provider store={store}>
+  <React.StrictMode>
     <App />
-  </Provider>,
-  document.getElementById('root')
+    <ToastContainer
+      position="bottom-left"
+      autoClose={5000} // Adjust the autoClose duration as needed
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+    />
+  </React.StrictMode>,
+  document.getElementById("root")
 );

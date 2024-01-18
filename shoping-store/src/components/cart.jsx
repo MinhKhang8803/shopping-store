@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { FiTrash2, FiPlus, FiMinus } from "react-icons/fi";
 import { removeFromCart, updateCartItem } from "../redux/actions/cartActions";
 import * as s from "../styles/cart";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Cart = ({ cart, dispatch }) => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Cart = ({ cart, dispatch }) => {
   const handleQuantityInputChange = (productId, event) => {
     const newQuantity = parseInt(event.target.value, 10);
     if (!isNaN(newQuantity)) {
-      handleQuantityChange(productId, newQuantity);
+      dispatch(updateCartItem(productId, newQuantity));
     }
   };
 
@@ -49,7 +49,9 @@ const Cart = ({ cart, dispatch }) => {
       <s.InnerContainer>
         <s.CartContainer>
           {cart.length === 0 ? (
-            <s.EmptyCartMessage>You have no products in cart.</s.EmptyCartMessage>
+            <s.EmptyCartMessage>
+              You have no products in cart.
+            </s.EmptyCartMessage>
           ) : (
             cart.map((product) => (
               <s.ProductContainer key={product.productId}>
@@ -57,11 +59,11 @@ const Cart = ({ cart, dispatch }) => {
                   <s.ProductInfo>
                     <s.ProductImage
                       src={product.imageUrl}
-                      alt={product.ProductName}
+                      alt={product.productName}
                     />
                     <s.ProductDetailCover>
                       <s.ProductDetails>
-                        <s.ProductName>{product.ProductName}</s.ProductName>
+                        <s.ProductName>{product.productName}</s.ProductName>
                         <s.ProductDescription>
                           {product.description}
                         </s.ProductDescription>
@@ -70,7 +72,10 @@ const Cart = ({ cart, dispatch }) => {
                         <s.QuantityButtonCover>
                           <s.QuantityButton
                             onClick={() =>
-                              handleQuantityChange(product.productId, product.quantity - 1)
+                              handleQuantityChange(
+                                product.productId,
+                                product.quantity - 1
+                              )
                             }
                           >
                             <FiMinus />
@@ -84,7 +89,10 @@ const Cart = ({ cart, dispatch }) => {
                           />
                           <s.QuantityButton
                             onClick={() =>
-                              handleQuantityChange(product.productId, product.quantity + 1)
+                              handleQuantityChange(
+                                product.productId,
+                                product.quantity + 1
+                              )
                             }
                           >
                             <FiPlus />
@@ -96,16 +104,15 @@ const Cart = ({ cart, dispatch }) => {
                   </s.ProductInfo>
                   <s.QuantityContainer>
                     <s.DeleteButton
-                      onClick={() =>
-                        handleQuantityChange(product.productId, 0)
-                      }
+                      onClick={() => handleQuantityChange(product.productId, 0)}
                     >
                       <FiTrash2 />
                     </s.DeleteButton>
                   </s.QuantityContainer>
                 </s.ProductDetailContainer>
               </s.ProductContainer>
-            )))}
+            ))
+          )}
 
           {deleteConfirmation !== null && (
             <s.ConfirmationPopup>
@@ -113,9 +120,7 @@ const Cart = ({ cart, dispatch }) => {
               <button onClick={() => handleDelete(deleteConfirmation)}>
                 Yes
               </button>
-              <button onClick={() => setDeleteConfirmation(null)}>
-                No
-              </button>
+              <button onClick={() => setDeleteConfirmation(null)}>No</button>
             </s.ConfirmationPopup>
           )}
         </s.CartContainer>
@@ -143,7 +148,7 @@ const Cart = ({ cart, dispatch }) => {
           >
             Checkout
           </s.CheckoutButton>
-          <s.ContinueShoppingButton onClick={() => navigate('/products')}>
+          <s.ContinueShoppingButton onClick={() => navigate("/products")}>
             Continue Shopping
           </s.ContinueShoppingButton>
         </s.CheckoutContainer>
