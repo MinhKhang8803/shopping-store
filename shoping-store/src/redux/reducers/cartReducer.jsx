@@ -8,12 +8,12 @@ const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_TO_CART:
       const existingProductIndex = state.cartItems.findIndex(
-        (item) => item.productId === action.payload.productId
+        (item) => item.productId === action.payload.product.productId
       );
 
       if (existingProductIndex !== -1) {
         const updatedCart = [...state.cartItems];
-        updatedCart[existingProductIndex].quantity += 1;
+        updatedCart[existingProductIndex].quantity += action.payload.quantity;
 
         return {
           ...state,
@@ -22,7 +22,7 @@ const cartReducer = (state = initialState, action) => {
       } else {
         return {
           ...state,
-          cartItems: [...state.cartItems, { ...action.payload, quantity: 1 }],
+          cartItems: [...state.cartItems, { ...action.payload.product, quantity: action.payload.quantity }],
         };
       }
 

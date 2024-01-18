@@ -1,4 +1,3 @@
-// configureStore.js
 import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import productReducer from '../redux/reducers/productReducer';
