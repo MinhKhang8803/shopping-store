@@ -1,8 +1,7 @@
-
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { ToastContainer } from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
@@ -20,5 +19,5 @@ ReactDOM.render(
       pauseOnHover
     />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );

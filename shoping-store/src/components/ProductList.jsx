@@ -1,12 +1,8 @@
-
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
-import { connect } from "react-redux";
-import { addToCart } from "../redux/actions/cartActions";
-import {
-  FaPlus,
-  FaMinus,
-} from "react-icons/fa";
+import {connect} from "react-redux";
+import {addToCart} from "../redux/actions/cartActions";
+import {FaPlus, FaMinus} from "react-icons/fa";
 import {
   ProductListContainer,
   ProductCard,
@@ -20,8 +16,7 @@ import {
   QuantityControl,
 } from "../styles/productlist";
 
-
-const ProductList = ({ addToCart }) => {
+const ProductList = ({addToCart}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -29,23 +24,22 @@ const ProductList = ({ addToCart }) => {
 
   const [quantity, setQuantity] = useState(1);
 
-
   useEffect(() => {
     setLoading(true);
     axios
       .get("http://localhost:4000/api/products")
-      .then((response) => {
+      .then(response => {
         setProducts(response.data);
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(error => {
         setError(error.message);
 
         setLoading(false);
       });
   }, []);
 
-  const handleProductClick = (product) => {
+  const handleProductClick = product => {
     setSelectedProduct(product);
   };
 
@@ -53,14 +47,12 @@ const ProductList = ({ addToCart }) => {
     setSelectedProduct(null);
   };
 
-
   const renderProductList = () => (
     <ProductListContainer>
-      {products.map((product) => (
+      {products.map(product => (
         <ProductCard
           key={product.productId}
-          onClick={() => handleProductClick(product)}
-        >
+          onClick={() => handleProductClick(product)}>
           <ProductImage src={product.imageUrl} alt={product.productName} />
           <ProductInfo>
             <ProductTitle>{product.productName}</ProductTitle>
@@ -68,8 +60,7 @@ const ProductList = ({ addToCart }) => {
             <ProductPrice>${product.price}</ProductPrice>
             <DetailsLink
               to={`/product/${product.id || product.productId}`}
-              onClick={handleDetailsLinkClick}
-            >
+              onClick={handleDetailsLinkClick}>
               Details
             </DetailsLink>
           </ProductInfo>
@@ -81,7 +72,6 @@ const ProductList = ({ addToCart }) => {
   const renderFullProductInfo = () => {
     if (selectedProduct) {
       return (
-
         <div
           style={{
             maxWidth: "500px",
@@ -91,37 +81,36 @@ const ProductList = ({ addToCart }) => {
             borderRadius: "8px",
             boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
             padding: "16px",
-          }}
-        >
+          }}>
           <ProductImage
             src={selectedProduct.imageUrl}
             alt={selectedProduct.name}
-            style={{ maxWidth: "100%", maxHeight: "400px" }}
+            style={{maxWidth: "100%", maxHeight: "400px"}}
           />
           <h2>{selectedProduct.name || selectedProduct.productName}</h2>
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
 
           <AddToCartButton onClick={() => addToCart(selectedProduct, quantity)}>
-          Add to Cart
-        </AddToCartButton>
+            Add to Cart
+          </AddToCartButton>
 
-        <QuantityControl>
-          <label htmlFor="quantity">Quantity:</label>
-          <div>
-            <FaMinus onClick={() => setQuantity(Math.max(1, quantity - 1))} />
-            <input
-              type="number"
-              id="quantity"
-              value={quantity}
-              min={1}
-              onChange={(e) =>
-                setQuantity(Math.max(1, parseInt(e.target.value, 10)))
-              }
-            />
-            <FaPlus onClick={() => setQuantity(quantity + 1)} />
-          </div>
-        </QuantityControl>
+          <QuantityControl>
+            <label htmlFor="quantity">Quantity:</label>
+            <div>
+              <FaMinus onClick={() => setQuantity(Math.max(1, quantity - 1))} />
+              <input
+                type="number"
+                id="quantity"
+                value={quantity}
+                min={1}
+                onChange={e =>
+                  setQuantity(Math.max(1, parseInt(e.target.value, 10)))
+                }
+              />
+              <FaPlus onClick={() => setQuantity(quantity + 1)} />
+            </div>
+          </QuantityControl>
         </div>
       );
     }
@@ -138,20 +127,20 @@ const ProductList = ({ addToCart }) => {
   }
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", padding: "20px" }}>
-      <div style={{ width: "70%" }}>
+    <div style={{display: "flex", justifyContent: "center", padding: "20px"}}>
+      <div style={{width: "70%"}}>
         {selectedProduct ? (
           renderFullProductInfo()
         ) : (
-          <img src="defaultImageUrl" alt="Default" style={{ width: "100%" }} />
+          <img src="defaultImageUrl" alt="Default" style={{width: "100%"}} />
         )}
       </div>
-      <div style={{ width: "30%" }}>{renderProductList()}</div>
+      <div style={{width: "30%"}}>{renderProductList()}</div>
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   addToCart: (product, quantity) => dispatch(addToCart(product, quantity)),
 });
 

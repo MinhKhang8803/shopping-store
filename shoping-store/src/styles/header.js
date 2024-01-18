@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { FaCartShopping } from "react-icons/fa6";
+import {Link} from "react-router-dom";
+import {FaCartShopping} from "react-icons/fa6";
 
 export const HeaderContainer = styled.div`
   background-color: white;
@@ -28,7 +28,9 @@ export const NavLink = styled(Link)`
   color: #777;
   text-decoration: none;
   font-weight: normal;
-  transition: color 0.3s, font-weight 0.3s;
+  transition:
+    color 0.3s,
+    font-weight 0.3s;
 
   &:hover {
     color: #000;
@@ -68,7 +70,7 @@ export const CartLink = styled(Link)`
   margin-right: 3rem;
   gap: 7rem;
   @media (max-width: 768px) {
-    justify-content: flex-start; 
+    justify-content: flex-start;
   }
 `;
 
@@ -81,7 +83,7 @@ export const StyledCartIcon = styled(FaCartShopping)`
 export const CartItemCount = styled.span`
   position: absolute;
   top: 50%;
-  right: 50%; 
+  right: 50%;
   transform: translate(50%, -50%);
   background-color: red;
   color: white;
