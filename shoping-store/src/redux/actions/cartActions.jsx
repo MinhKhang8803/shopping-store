@@ -1,11 +1,9 @@
-// cartActions.js
-import * as actionTypes from './actionTypes';
+import * as actionTypes from "./actionTypes";
 
-export const addToCart = (product) => ({
+export const addToCart = (product, quantity) => ({
   type: actionTypes.ADD_TO_CART,
-  payload: product,
+  payload: { product, quantity },
 });
-
 
 export const updateCartItem = (productId, quantity) => ({
   type: actionTypes.UPDATE_CART_ITEM,
