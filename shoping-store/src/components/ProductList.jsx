@@ -49,13 +49,11 @@ const ProductList = ({ addToCart }) => {
     <ProductListContainer>
       {products.map((product) => (
         <ProductCard key={product.productId} onClick={() => handleProductClick(product)}>
-          <ProductImage src={product.imageUrl} alt={product.name} />
+          <ProductImage src={product.imageUrl} alt={product.productName} />
           <ProductInfo>
-            <ProductTitle>{product.name || product.productName}</ProductTitle>
+            <ProductTitle>{product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
-            
             <ProductPrice>${product.price}</ProductPrice>
-
             <DetailsLink
               to={`/product/${product.id || product.productId}`}
               onClick={handleDetailsLinkClick}
@@ -71,8 +69,10 @@ const ProductList = ({ addToCart }) => {
   const renderFullProductInfo = () => {
     if (selectedProduct) {
       return (
+
         <div style={{ maxWidth: '500px', position: 'fixed', top: '50px', left: '300px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', padding: '16px' }}>
           {/* Added padding to the inner content */}
+
           <ProductImage
             src={selectedProduct.imageUrl}
             alt={selectedProduct.name}
