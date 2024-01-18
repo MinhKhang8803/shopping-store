@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import { FiTrash2, FiPlus, FiMinus } from 'react-icons/fi';
+import styled from "styled-components";
+import { FiTrash2, FiPlus, FiMinus } from "react-icons/fi";
 
 export const Container = styled.div`
-  background-color: #E5E7EB;
+  background-color: #e5e7eb;
   height: 79vh;
   margin-top: 0;
   display: flex;
@@ -10,14 +10,21 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const EmptyCartMessage = styled.p`
+  text-align: center;
+  margin-top: 10vh;
+  font-size: 20px;
+  font-weight: 700;
+`;
+
 export const ProductContainer = styled.div`
   width: 70%;
   margin-bottom: 20px;
 `;
 export const InnerContainer = styled.div`
-width: 80%;
-display: flex;
-justify-content: center;
+  width: 80%;
+  display: flex;
+  justify-content: center;
 `;
 export const ProductDetailContainer = styled.div`
   display: flex;
@@ -28,17 +35,17 @@ export const ProductDetailContainer = styled.div`
   width: 140%;
   height: 25vh;
 `;
-export const CartContainer =styled.div`
+export const CartContainer = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
 `;
 export const CheckoutContainer = styled.div`
-  width: 30%;
+  width: 45%;
   height: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
 `;
 export const ProductInfo = styled.div`
   display: flex;
@@ -57,7 +64,7 @@ export const ProductImage = styled.img`
 export const ProductDetails = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 10px; 
+  margin-right: 10px;
 `;
 
 export const ProductName = styled.span`
@@ -84,9 +91,9 @@ export const QuantityButton = styled.button`
 `;
 
 export const QuantityDiv = styled.div`
-width:100%;
-display: flex;
-justify-content: space-between;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 export const InputAsSpan = styled.input`
   border: none;
@@ -101,22 +108,22 @@ export const InputAsSpan = styled.input`
   -moz-appearance: textfield;
 `;
 export const QuantityButtonCover = styled.div`
-width:30%;
-display: flex;
-background-color: #adadad;
-border-radius: 5px;
-justify-content: space-between;
-flex-wrap: wrap;
-align-items: center;
+  width: 30%;
+  display: flex;
+  background-color: #adadad;
+  border-radius: 5px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
 `;
 export const ProductPrice = styled.div`
- font-size: 24px;
- text-transform: uppercase;
+  font-size: 24px;
+  text-transform: uppercase;
 `;
 export const ProductDetailCover = styled.div`
-display: flex;
-flex-direction: column;
-width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
 export const DeleteButton = styled.button`
   background-color: #ef4444;
@@ -142,28 +149,28 @@ export const CheckoutButton = styled.button`
   border: none;
   padding: 10px;
   cursor: pointer;
-  width: 100%;  // Set width to 100% to match CheckoutContainer
+  width: 100%; // Set width to 100% to match CheckoutContainer
 `;
 
 export const Title = styled.div`
-  width:80%;
-  height:30px;
-  background-color:white;
+  width: 80%;
+  height: 30px;
+  background-color: white;
   border-radius: 5px;
   margin-bottom: 10px;
   height: 40px;
-  display:flex;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
   margin-top: 10px;
 
-  h2{
+  h2 {
     color: black;
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
     font-size: 20px;
-    align-items:center;
+    align-items: center;
     flex-wrap: wrap;
   }
 `;
@@ -183,12 +190,13 @@ export { FiTrash2, FiPlus, FiMinus };
 
 export const OrderInfo = styled.div`
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #ccc;
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-start;
+  border-radius: 15px;
 `;
 
 export const OrderInfoItem = styled.div`
@@ -203,11 +211,11 @@ export const OrderInfoItem = styled.div`
 `;
 
 export const ContinueShoppingButton = styled.button`
-  background-color: #3b82f6;  // Adjust color as needed
+  background-color: #3b82f6; // Adjust color as needed
   color: #fff;
   border: none;
   padding: 10px;
   cursor: pointer;
-  width: 100%;  // Set width to 100% to match CheckoutContainer
-  margin-top: 10px;  // Add margin for separation
+  width: 100%; // Set width to 100% to match CheckoutContainer
+  margin-top: 10px; // Add margin for separation
 `;
