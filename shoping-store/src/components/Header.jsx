@@ -10,9 +10,9 @@ const Header = () => {
         <HeaderContainer>
             <HeaderWrapper>
                 <Nav>
-                    <NavLink as={Link} to="/" className={location.pathname === '/' ? 'active' : ''}>
+                    <NavLink as={Link} to="/home" className={location.pathname === '/' ? 'active' : ''}>
                         Home
-                        {location.pathname === '/' && <Dot />}
+                        {location.pathname === '/home' && <Dot />}
                     </NavLink>
                     <NavLink as={Link} to="/products" className={location.pathname === '/products' ? 'active' : ''}>
                         Products

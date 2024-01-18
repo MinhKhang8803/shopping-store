@@ -1,68 +1,58 @@
+// ../styles/productlist.js
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const ProductListContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding: 20px;
-  width: 100%;
-  max-width: 300px;
-  margin-left: 74%;
+  flex-wrap: wrap;
+  gap: 16px;
 `;
 
 export const ProductCard = styled.div`
-  display: flex;
-  background-color: #fff;
-  margin-bottom: 15px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  align-items: center;
-  width: 260px;
-`;
+  padding: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
 
-export const DetailsLink = styled(Link)`
-  color: #0066cc;
-  text-decoration: none;
-  align-self: flex-end;
-  margin-top: auto;
-  font-size: 0.8em;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 export const ProductImage = styled.img`
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  margin-right: 10px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 `;
 
-
 export const ProductInfo = styled.div`
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: calc(100% - 80px);
+  margin-top: 8px;
 `;
 
 export const ProductTitle = styled.h3`
-  font-size: 1.2em;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `;
 
 export const ProductDescription = styled.p`
-  color: #666;
-  font-size: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 130px;
-  display: block;
+  margin-bottom: 8px;
 `;
 
-export const ProductPrice = styled.span`
-  font-size: 1em;
-  color: #333;
+export const ProductPrice = styled.p`
   font-weight: bold;
+`;
+
+export const AddToCartButton = styled.button`
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+export const DetailsLink = styled.a`
+  color: #007bff;
+  text-decoration: none;
+  margin-top: 8px;
+  display: block;
 `;
