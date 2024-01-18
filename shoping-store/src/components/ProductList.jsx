@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { addToCart } from '../redux/actions/cartActions'; 
-
 import {
   ProductListContainer,
   ProductCard,
@@ -25,7 +24,7 @@ const ProductList = ({ addToCart }) => {
 
 
   useEffect(() => {
-    loading(true);
+    setLoading(true);
     axios.get('http://localhost:4000/api/products')
       .then(response => {
         setProducts(response.data);
@@ -54,7 +53,7 @@ const ProductList = ({ addToCart }) => {
           <ProductInfo>
             <ProductTitle>{product.name || product.productName}</ProductTitle>
             <ProductDescription>{product.description}</ProductDescription>
-            <AddToCartButton onClick={() => addToCart(product)}>Add to Cart</AddToCartButton>
+            
             <ProductPrice>${product.price}</ProductPrice>
 
             <DetailsLink
@@ -82,9 +81,8 @@ const ProductList = ({ addToCart }) => {
           />
           <p>{selectedProduct.description}</p>
           <p>Price: ${selectedProduct.price}</p>
-          <AddToCartButton onClick={() => handleAddToCart(selectedProduct)}>
-            Add to Cart
-          </AddToCartButton>
+          <AddToCartButton onClick={() => addToCart(selectedProduct)}>Add to Cart</AddToCartButton>
+
         </div>
       );
     }
