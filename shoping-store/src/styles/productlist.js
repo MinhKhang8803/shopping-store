@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-const mobileMaxWidth = "768px";
+const mobileMaxWidth = '768px';
 
 export const ProductListContainer = styled.div`
   display: flex;
