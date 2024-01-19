@@ -11,7 +11,17 @@ export const ProductListContainer = styled.div`
     justify-content: center;
   }
 `;
-
+export const ProductDetail = styled.div`
+  max-Width: 500px;
+  top: 50px;
+  left: 300px;
+  border-radius: 8px;
+  box-Shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  @media (min-width: 992px) {
+    position: fixed;
+  }
+`
 export const ProductCard = styled.div`
   display: flex;
   background-color: #fff;
@@ -21,6 +31,7 @@ export const ProductCard = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   align-items: center;
   width: 360px;
+  cursor: pointer;
   @media (max-width: 768px) {
     /* Mobile specific styles */
     flex-direction: column;
@@ -94,7 +105,6 @@ export const DetailsLink = styled.a`
   margin-top: 8px;
   display: block;
 `;
-
 export const QuantityControl = styled.div`
   display: flex;
   align-items: center;

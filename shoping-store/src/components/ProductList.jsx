@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import Img from "../image/comming-soon.png";
 import {connect} from "react-redux";
 import {addToCart} from "../redux/actions/cartActions";
 import {FaPlus, FaMinus} from "react-icons/fa";
@@ -14,6 +15,7 @@ import {
   AddToCartButton,
   DetailsLink,
   QuantityControl,
+  ProductDetail,
 } from "../styles/productlist";
 
 const ProductList = ({addToCart}) => {
@@ -72,16 +74,7 @@ const ProductList = ({addToCart}) => {
   const renderFullProductInfo = () => {
     if (selectedProduct) {
       return (
-        <div
-          style={{
-            maxWidth: "500px",
-            position: "fixed",
-            top: "50px",
-            left: "300px",
-            borderRadius: "8px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-            padding: "16px",
-          }}>
+        <ProductDetail>
           <ProductImage
             src={selectedProduct.imageUrl}
             alt={selectedProduct.name}
@@ -111,7 +104,7 @@ const ProductList = ({addToCart}) => {
               <FaPlus onClick={() => setQuantity(quantity + 1)} />
             </div>
           </QuantityControl>
-        </div>
+        </ProductDetail>
       );
     }
 
@@ -132,7 +125,7 @@ const ProductList = ({addToCart}) => {
         {selectedProduct ? (
           renderFullProductInfo()
         ) : (
-          <img src="defaultImageUrl" alt="Default" style={{width: "100%"}} />
+          <img src={Img} alt="Default" style={{width: "70%"}} />
         )}
       </div>
       <div style={{width: "30%"}}>{renderProductList()}</div>
