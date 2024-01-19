@@ -53,7 +53,6 @@ const Cart = ({cart, dispatch}) => {
       });
 
       if (response.ok) {
-        // If the server returns a successful result, remove each item from the cart
         cart.forEach(product => {
           dispatch(removeFromCart(product.productId));
         });
@@ -61,9 +60,8 @@ const Cart = ({cart, dispatch}) => {
         setDeleteConfirmation(null);
         setCheckoutComplete(true);
 
-        // Redirect the user to the Products page
         navigate("/products");
-
+        alert("Thank you for buy our products!");
         console.log("Checkout Complete!"); // Add this line for debugging
       } else {
         // Handle errors or display a message to the user
