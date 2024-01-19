@@ -1,9 +1,7 @@
-
 // Trong file styles/header.js
-import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
-import { FaCartShopping } from "react-icons/fa6";
-
+import styled, {css} from "styled-components";
+import {Link} from "react-router-dom";
+import {FaCartShopping} from "react-icons/fa6";
 
 export const HeaderContainer = styled.div`
   background-color: white;
@@ -12,7 +10,7 @@ export const HeaderContainer = styled.div`
 
 export const HeaderWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   padding: 10px;
@@ -32,7 +30,7 @@ export const Nav = styled.div`
   font-size: 17px;
   font-family: "Fira Sans", sans-serif;
 
-  ${({ isMobile }) =>
+  ${({isMobile}) =>
     !isMobile &&
     css`
       flex-direction: row;
@@ -59,7 +57,7 @@ export const NavLink = styled(Link)`
     font-weight: bold;
   }
 
-  ${({ isMobile }) =>
+  ${({isMobile}) =>
     isMobile &&
     css`
       margin-left: 0;
@@ -99,7 +97,6 @@ export const CartLink = styled(Link)`
 
     flex-direction: column;
     align-items: flex-end;
-
   }
 `;
 
@@ -128,7 +125,7 @@ export const NavLinksContainer = styled.div`
   display: none;
 
   @media (max-width: 768px) {
-    display: ${({ isDropdownOpen }) => (isDropdownOpen ? "flex" : "none")};
+    display: ${({isDropdownOpen}) => (isDropdownOpen ? "flex" : "none")};
     position: absolute;
     top: 60px;
     left: 0;
