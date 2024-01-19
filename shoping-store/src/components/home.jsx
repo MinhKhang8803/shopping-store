@@ -1,11 +1,12 @@
 import React from "react";
 import Img from "../image/comming-soon.png";
+import { HomeContainer, Image } from "../styles/home";
 
 const Home = () => {
   return (
-    <div>
-      <img src={Img} alt="" style={{width: "700px", height: "600px"}} />
-    </div>
+    <HomeContainer>
+      <Image src={Img} alt="Coming Soon" />
+    </HomeContainer>
   );
 };
 
