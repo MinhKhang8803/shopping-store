@@ -1,4 +1,4 @@
-// Trong file Header.jsx
+
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { HeaderContainer, HeaderWrapper, Nav, NavLink, Title, CartLink, StyledCartIcon, Dot, CartItemCount, NavLinksContainer, MobileMenuButton } from '../styles/header';

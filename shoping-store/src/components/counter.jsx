@@ -1,8 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
-import { increment, decrement } from "../redux/actions/counterActions";
+import {connect} from "react-redux";
+import {increment, decrement} from "../redux/actions/counterActions";
 
-const Counter = ({ count, increment, decrement }) => {
+const Counter = ({count, increment, decrement}) => {
   return (
     <div>
       <h1>Counter: {count}</h1>
@@ -12,10 +12,10 @@ const Counter = ({ count, increment, decrement }) => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     count: state.counter,
   };
 };
 
-export default connect(mapStateToProps, { increment, decrement })(Counter);
+export default connect(mapStateToProps, {increment, decrement})(Counter);
